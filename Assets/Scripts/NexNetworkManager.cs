@@ -2,18 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Steamworks;
 
 public class NexNetworkManager : NetworkManager
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    [SerializeField] private PlayerObjectController GamePlayerPrefab;
+    public List<PlayerObjectController> Players { get; } = new List<PlayerObjectController>();
+
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        
+
+        PlayerObjectController PlayerInstance = Instantiate(GamePlayerPrefab);
+        PlayerInstance.ConnectionId = conn.connectionId;
+        PlayerInstance.PlayerId = Players.Count + 1;
+        PlayerInstance.PlayerSteamId = (ulong) SteamMatchmaking.GetLobbyMemberByIndex((CSteamID) SteamLobby.Instance.LobbyId, Players.Count);
+
+        NetworkServer.AddPlayerForConnection(conn, PlayerInstance.gameObject);
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
