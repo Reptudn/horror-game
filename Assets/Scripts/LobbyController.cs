@@ -137,9 +137,13 @@ public class LobbyController : MonoBehaviour
             foreach (PlayerListItem PlayerListItem in Players)
             {
 
-                PlayerListItem.PlayerName = Player.PlayerName;
-                PlayerListItem.SetPlayerValues();
+                if (PlayerListItem.ConnectionId == Player.ConnectionId)
+                {
 
+                    PlayerListItem.PlayerName = Player.PlayerName;
+                    PlayerListItem.SetPlayerValues();
+
+                }
             }
         }
     }
