@@ -10,6 +10,7 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar] public int PlayerId;
     [SyncVar] public ulong PlayerSteamId;
     [SyncVar(hook = nameof(PlayerNameUpdate))] public string PlayerName;
+    [SyncVar(hook = nameof(PlayerStatusUpdate))] public bool PlayerStatus;
 
     private NexNetworkManager manager;
     private NexNetworkManager Manager
@@ -51,6 +52,20 @@ public class PlayerObjectController : NetworkBehaviour
         this.PlayerNameUpdate(this.PlayerName, PlayerName);
     }
 
+    [Command]
+    private void Cmd_SetPlayerStatus()
+    {
+        this.PlayerStatusUpdate(this.PlayerStatus, !this.PlayerStatus);
+    }
+
+    public void ChangeStatus()
+    {
+        if (hasAuthority)
+        {
+            Cmd_SetPlayerStatus();
+        }
+    }
+
     public void PlayerNameUpdate(string OldValue, string NewValue){
 
         if (isServer)
@@ -63,4 +78,17 @@ public class PlayerObjectController : NetworkBehaviour
         }
 
     }
+
+    private void PlayerStatusUpdate(bool OldValue, bool NewValue)
+    {
+        if (isServer)
+        {
+            this.PlayerStatus = NewValue;
+        }
+        if (isClient)
+        {
+            LobbyController.Instance.UpdatePlayerList();
+        }
+    }
+
 }

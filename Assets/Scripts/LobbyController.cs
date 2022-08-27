@@ -13,6 +13,8 @@ public class LobbyController : MonoBehaviour
 
     // GameObjects
     public Text LobbyNameText;
+    public Button StatusButton;
+    public Text StatusButtonText;
     
     // Player Data
     public GameObject PlayerListViewContent;
@@ -44,6 +46,28 @@ public class LobbyController : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
+    }
+
+    public void PlayerStatus()
+    {
+        LocalPlayerController.ChangeStatus();
+    }
+
+    public void UpdateStatusButton()
+    {
+
+        if (LocalPlayerController.PlayerId == 1){
+            StatusButtonText.text = "Start";
+        }
+        else if (LocalPlayerController.PlayerStatus)
+        {
+            StatusButtonText.text = "Not Ready";
+        }
+        else
+        {
+            StatusButtonText.text = "Ready";
+        }
+
     }
 
     public void UpdateLobbyName()
@@ -82,6 +106,7 @@ public class LobbyController : MonoBehaviour
                 NewPlayerItem.PlayerName = Player.PlayerName;
                 NewPlayerItem.ConnectionId = Player.ConnectionId;
                 NewPlayerItem.PlayerSteamId = Player.PlayerSteamId;
+                NewPlayerItem.PlayerStatus = Player.PlayerStatus;
                 NewPlayerItem.SetPlayerValues();
 
                 PlayerItem.transform.SetParent(PlayerListViewContent.transform);
@@ -141,9 +166,51 @@ public class LobbyController : MonoBehaviour
                 {
 
                     PlayerListItem.PlayerName = Player.PlayerName;
+                    PlayerListItem.PlayerStatus = Player.PlayerStatus;
+                    PlayerListItem.PlayerId = Player.PlayerId;
                     PlayerListItem.SetPlayerValues();
 
+                    if (Player == LocalPlayerController)
+                    {
+                        UpdateStatusButton();
+                    }
+
                 }
+            }
+        }
+
+        CheckIfAllReady();
+
+    }
+
+    public void CheckIfAllReady()
+    {
+
+        bool AllReady = true;
+        
+        foreach (PlayerObjectController Player in Manager.Players)
+        {
+
+            if (!Player.PlayerStatus && Player.PlayerId != 1){
+
+                AllReady = false;
+                break;
+
+            }
+        }
+
+        Debug.Log("AllReady " + AllReady.ToString());
+
+        if (AllReady && LocalPlayerController != null)
+        {
+
+            if (LocalPlayerController.PlayerId == 1)
+            {
+                StatusButton.interactable = true;
+            }
+            else
+            {
+                StatusButton.interactable = false;
             }
         }
     }
