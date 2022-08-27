@@ -5,60 +5,110 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
 
-    public GameObject[] items;
+    public List<GameObject> items;
 
     public GameObject hand;
 
+    public Camera camera;
+
+    public string collectableItems = "Pickup";
+    public int allowedPickupDistance = 6;
 
     int index = 0;
     int itemsInInventory = 0;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        index = 0;
+
         Show(items[index]);
-        //itemsInInventory = items.Length();
-        
+     
+        for(int i = 0; i < items.Count; i++){
+            if(items[i] == null) {
+                GameObject placeholder = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                placeholder.name = "placeholder";
+                placeholder.SetActive(false);
+                items[i] = new GameObject();
+
+            }
+
+            AddItemToInventory(items[i]);
+            
+        }
+
+        itemsInInventory = items.Count;
+
     }
 
-    public GameObject[] GetInventoryItems(){
+    public List<GameObject> GetInventoryItems(){
         return items;
     }
 
     public void AddItemToInventory(GameObject item){
+
+        if(items.Count <= itemsInInventory) return;
+
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
 
         items[itemsInInventory] = item;
+        index = itemsInInventory;
         itemsInInventory++;
+        Show(item);
 
-        Debug.Log("Item added to inventory: " + item.name);
+        Debug.Log("Item added to inventory: " + item.name + ", " + itemsInInventory);
     }
 
     public void RemoveItemFromInventory(GameObject item){
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
-            if(index < items.Length) index++;
+            if(index < items.Count - 1) index++;
+            Debug.Log(index);
             Show(items[index]);
         }
 
         if(Input.GetAxis("Mouse ScrollWheel") < 0){ //scroll down
-            if(index < items.Length && index > 0) index--;
+            if(index < items.Count && index > 0) index--;
+            Debug.Log(index);
             Show(items[index]);
         }
+
+        if(Input.GetKeyDown(KeyCode.E)){
+
+            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
+
+                if(hit.transform.gameObject.tag == collectableItems && hit.distance <= allowedPickupDistance) {
+
+                    AddItemToInventory(hit.transform.gameObject);
+                    Debug.DrawLine(camera.transform.position, hit.point, Color.red, 5);
+
+                }
+            }     
+
+        }
+        
+    }
+
+    void LogItemsInventory(){
+        Debug.Log("--------------------");
+        foreach(GameObject i in items){
+            Debug.Log(i.name);
+        }
+        Debug.Log(itemsInInventory);
+        Debug.Log("--------------------");
     }
 
     void Show(GameObject toShow){
+        
         foreach(GameObject o in items){
             if(o == toShow) o.SetActive(true);
             else o.SetActive(false);
         }
+        
     }
 
 }
