@@ -5,6 +5,7 @@ using Mirror;
 using Steamworks;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class LobbyController : MonoBehaviour
 {
@@ -12,9 +13,9 @@ public class LobbyController : MonoBehaviour
     public static LobbyController Instance;
 
     // GameObjects
-    public Text LobbyNameText;
+    public TextMeshProUGUI LobbyNameText;
     public Button StatusButton;
-    public Text StatusButtonText;
+    public TextMeshProUGUI StatusButtonText;
     
     // Player Data
     public GameObject PlayerListViewContent;
@@ -211,4 +212,10 @@ public class LobbyController : MonoBehaviour
             }
         }
     }
+
+    public void StartGame(string SceneName)
+    {
+        LocalPlayerController.CanStartGame(SceneName);
+    }
+
 }

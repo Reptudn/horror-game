@@ -20,7 +20,7 @@ public class MovementContoller : MonoBehaviour
     public float speed = 10f;
     public float jumpForce = 2f;
     public float gravity = -1f;
-    
+
     
     // Start is called before the first frame update
     void Start()

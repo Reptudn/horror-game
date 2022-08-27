@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
+using TMPro;
 
 public class PlayerListItem : MonoBehaviour
 {
@@ -13,9 +14,9 @@ public class PlayerListItem : MonoBehaviour
     public ulong PlayerSteamId;
     public bool AvatarReceived;
 
-    public Text PlayerNameText;
+    public TextMeshProUGUI PlayerNameText;
     public RawImage PlayerIcon;
-    public Text PlayerStatusText;
+    public TextMeshProUGUI PlayerStatusText;
     public bool PlayerStatus;
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
