@@ -9,13 +9,31 @@ public class PlayerListItem : MonoBehaviour
 
     public string PlayerName;
     public int ConnectionId;
+    public int PlayerId;
     public ulong PlayerSteamId;
     public bool AvatarReceived;
 
     public Text PlayerNameText;
     public RawImage PlayerIcon;
+    public Text PlayerStatusText;
+    public bool PlayerStatus;
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
+
+    public void ChangeReadyStatus()
+    {
+        if (PlayerId == 1){
+            PlayerStatusText.text = "";
+        }
+        else if (PlayerStatus)
+        {
+            PlayerStatusText.text = "Ready";
+        }
+        else
+        {
+            PlayerStatusText.text = "Not Ready";
+        }
+    }
 
     void Start()
     {
@@ -28,6 +46,7 @@ public class PlayerListItem : MonoBehaviour
     {
 
         PlayerNameText.text = PlayerName;
+        ChangeReadyStatus();
         if (!AvatarReceived) { GetPlayerIcon(); }
 
     }
