@@ -186,7 +186,7 @@ public class LobbyController : MonoBehaviour
     public void CheckIfAllReady()
     {
 
-        bool AllReady = false;
+        bool AllReady = true;
         
         foreach (PlayerObjectController Player in Manager.Players)
         {
