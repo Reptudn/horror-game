@@ -186,7 +186,7 @@ public class LobbyController : MonoBehaviour
     public void CheckIfAllReady()
     {
 
-        bool AllReady = true;
+        bool AllReady = false;
         
         foreach (PlayerObjectController Player in Manager.Players)
         {
@@ -199,12 +199,9 @@ public class LobbyController : MonoBehaviour
             }
         }
 
-        Debug.Log("AllReady " + AllReady.ToString());
-
-        if (AllReady && LocalPlayerController != null)
+        if (LocalPlayerController != null && LocalPlayerController.PlayerId == 1)
         {
-
-            if (LocalPlayerController.PlayerId == 1)
+            if (AllReady)
             {
                 StatusButton.interactable = true;
             }
