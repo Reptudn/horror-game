@@ -10,6 +10,7 @@ public class PlayerMovementController : NetworkBehaviour
     [Header("Movement Settings")]
     public float Speed = 0.1f;
     public float JumpForce = 2f;
+    public float Gravity = .981f;
 
     [Header("Ground Check")]
     public LayerMask GroundMask;
@@ -17,12 +18,13 @@ public class PlayerMovementController : NetworkBehaviour
 
     [Header("Objects")]
     public GameObject PlayerModel;
-    public CharacterController Controller;
+    private Rigidbody RigidBody;
 
     private void Start()
     {
         PlayerModel.SetActive(false);
-
+        RigidBody = transform.GetComponent<Rigidbody>();
+        RigidBody.freezeRotation = true;
     }
 
     private void Update()
@@ -35,7 +37,6 @@ public class PlayerMovementController : NetworkBehaviour
         if (hasAuthority) { 
 
             Movement();
-
             Grounded = Physics.Raycast(transform.position, Vector3.down, transform.GetComponent<Collider>().bounds.size.y * 0.5f + 0.2f, GroundMask);
 
             if (transform.position.y < -10)
@@ -62,7 +63,9 @@ public class PlayerMovementController : NetworkBehaviour
         float zDirection = Input.GetAxis("Vertical");
 
         Vector3 MoveDirection = Orientation.forward * zDirection + Orientation.right * xDirection;
-        Controller.Move(MoveDirection * Speed * Time.deltaTime);
+        MoveDirection = new Vector3(Mathf.Clamp(MoveDirection.x * Speed * Time.deltaTime, -Speed, Speed), 0, Mathf.Clamp(MoveDirection.z * Speed * Time.deltaTime, -Speed, Speed));
+
+        RigidBody.position += MoveDirection;
 
     }
 }

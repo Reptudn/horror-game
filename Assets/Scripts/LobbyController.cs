@@ -58,15 +58,15 @@ public class LobbyController : MonoBehaviour
     {
 
         if (LocalPlayerController.PlayerId == 1){
-            StatusButtonText.text = "Start";
+            StatusButtonText.SetText("Start");
         }
         else if (LocalPlayerController.PlayerStatus)
         {
-            StatusButtonText.text = "Not Ready";
+            StatusButtonText.SetText("Not Ready");
         }
         else
         {
-            StatusButtonText.text = "Ready";
+            StatusButtonText.SetText("Ready");
         }
 
     }
@@ -74,7 +74,7 @@ public class LobbyController : MonoBehaviour
     public void UpdateLobbyName()
     {
         LobbyId = Manager.GetComponent<SteamLobby>().LobbyId;
-        LobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(LobbyId), "name");
+        LobbyNameText.SetText(SteamMatchmaking.GetLobbyData(new CSteamID(LobbyId), "name"));
     }
 
     public void UpdatePlayerList()

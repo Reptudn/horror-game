@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
-public class PlayerCameraController : MonoBehaviour
+public class PlayerCameraController : NetworkBehaviour
 {
     [Header("Mouse Settings")]
     [Range(1f, 30f)]
@@ -29,18 +30,20 @@ public class PlayerCameraController : MonoBehaviour
     private void Update()
     {
 
-        Camera.main.transform.position = CameraAnchor.transform.position;
+        if (hasAuthority){
 
-        float MouseX = Input.GetAxis("Mouse X") * Time.deltaTime * (MouseSensitivity * 100);
-        float MouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * (MouseSensitivity * 100);
+            float MouseX = Input.GetAxis("Mouse X") * Time.deltaTime * (MouseSensitivity * 100);
+            float MouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * (MouseSensitivity * 100);
 
-        yRotation += MouseX;
-        xRotation -= MouseY;
-        xRotation  = Mathf.Clamp(xRotation, -90f, 90f);
+            yRotation += MouseX;
+            xRotation -= MouseY;
+            xRotation  = Mathf.Clamp(xRotation, -90f, 90f);
 
-        Camera.main.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        transform.rotation = Quaternion.Euler(0, yRotation, 0);
 
+            Camera.main.transform.position = CameraAnchor.transform.position;
+            Camera.main.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+            transform.rotation = Quaternion.Euler(0, yRotation, 0);
+
+        }
     }   
-
 }

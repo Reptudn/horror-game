@@ -24,15 +24,15 @@ public class PlayerListItem : MonoBehaviour
     public void ChangeReadyStatus()
     {
         if (PlayerId == 1){
-            PlayerStatusText.text = "";
+            PlayerStatusText.SetText("");
         }
         else if (PlayerStatus)
         {
-            PlayerStatusText.text = "Ready";
+            PlayerStatusText.SetText("Ready");
         }
         else
         {
-            PlayerStatusText.text = "Not Ready";
+            PlayerStatusText.SetText("Not Ready");
         }
     }
 
@@ -46,7 +46,7 @@ public class PlayerListItem : MonoBehaviour
     public void SetPlayerValues()
     {
 
-        PlayerNameText.text = PlayerName;
+        PlayerNameText.SetText(PlayerName);
         ChangeReadyStatus();
         if (!AvatarReceived) { GetPlayerIcon(); }
 
