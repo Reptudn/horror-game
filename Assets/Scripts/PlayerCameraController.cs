@@ -55,21 +55,24 @@ public class PlayerCameraController : NetworkBehaviour
 
         if (hasAuthority){
 
-            GameObject Head = PlayerModel.transform.Find("Head").gameObject;
+            if(SceneManager.GetActiveScene().name != "MainMenu"){
 
-            float MouseX = Input.GetAxis("Mouse X") * Time.deltaTime * (MouseSensitivity * 100);
-            float MouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * (MouseSensitivity * 100);
+                GameObject Head = PlayerModel.transform.Find("Head").gameObject;
 
-            yRotation += MouseX;
-            xRotation -= MouseY;
-            xRotation  = Mathf.Clamp(xRotation, -90f, 90f);
+                float MouseX = Input.GetAxis("Mouse X") * Time.deltaTime * (MouseSensitivity * 100);
+                float MouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * (MouseSensitivity * 100);
 
-            Camera.main.transform.position = CameraAnchor.transform.position;
-            Camera.main.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
-            Head.transform.rotation = Camera.main.transform.rotation;
+                yRotation += MouseX;
+                xRotation -= MouseY;
+                xRotation  = Mathf.Clamp(xRotation, -90f, 90f);
 
-            transform.rotation = Quaternion.Euler(0, yRotation, 0);
+                Camera.main.transform.position = CameraAnchor.transform.position;
+                Camera.main.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+                Head.transform.rotation = Camera.main.transform.rotation;
 
+                transform.rotation = Quaternion.Euler(0, yRotation, 0);
+
+            }
         }
     }   
 }
