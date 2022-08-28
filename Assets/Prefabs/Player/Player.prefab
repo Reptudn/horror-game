@@ -497,7 +497,7 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 2
-  m_AssetId: 
+  m_AssetId: fcfec45ad2a2b7d41a63ef194192e504
   hasSpawned: 0
 --- !u!114 &9051138274040549304
 MonoBehaviour:
@@ -511,6 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a23e36a31b74648bfe6eaef4d71ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObj: {fileID: 0}
   playerTransform: {fileID: 9051138274040549311}
   characterController: {fileID: 9051138274040549305}
   groundCheck: {fileID: 9051138273487000420}
@@ -548,9 +549,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 9051138274040549299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 542e2995b922ca040ac991bdaae6b930, type: 3}
+  m_Script: {fileID: 11500000, guid: 82a23e36a31b74648bfe6eaef4d71ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObj: {fileID: 0}
+  playerTransform: {fileID: 0}
+  characterController: {fileID: 0}
+  groundCheck: {fileID: 0}
+  groundDistance: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 10
+  jumpForce: 2
+  gravity: -1
 --- !u!1 &9051138274305316667
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +609,7 @@ GameObject:
   - component: {fileID: 9051138274431198119}
   - component: {fileID: 9051138274431198116}
   m_Layer: 6
-  m_Name: Kravatte
+  m_Name: Tie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
