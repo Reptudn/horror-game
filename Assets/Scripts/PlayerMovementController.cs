@@ -65,7 +65,11 @@ public class PlayerMovementController : NetworkBehaviour
         Vector3 MoveDirection = Orientation.forward * zDirection + Orientation.right * xDirection;
         MoveDirection = new Vector3(Mathf.Clamp(MoveDirection.x * Speed * Time.deltaTime, -Speed, Speed), 0, Mathf.Clamp(MoveDirection.z * Speed * Time.deltaTime, -Speed, Speed));
 
-        RigidBody.position += MoveDirection;
+        if(Input.GetButtonDown("Jump") && Grounded){
+            MoveDirection.y = Mathf.Sqrt(JumpForce);
+        }
+
+        RigidBody.velocity += MoveDirection;
 
     }
 }
