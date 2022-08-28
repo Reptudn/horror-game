@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 8716399147510650940}
   - component: {fileID: 238237138158776497}
   - component: {fileID: 8542221320135054813}
+  - component: {fileID: 7232105721618959733}
+  - component: {fileID: 5657117034566554503}
   m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
@@ -130,6 +132,58 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7232105721618959733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512501834991595338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 9545d9ba014840f469e275d9a5adc7b6
+  hasSpawned: 0
+--- !u!114 &5657117034566554503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512501834991595338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  target: {fileID: 0}
 --- !u!1 &3098935445561756845
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +589,7 @@ GameObject:
   - component: {fileID: 6444717431624380318}
   - component: {fileID: 4096724372979077467}
   - component: {fileID: 7520905995517670381}
+  - component: {fileID: -6943458110170123219}
   - component: {fileID: 7480997000191555543}
   - component: {fileID: 425884007110673044}
   - component: {fileID: 2483763461066419827}
@@ -638,6 +693,18 @@ MonoBehaviour:
   MouseSensitivity: 15
   PlayerModel: {fileID: 4414367869525604798}
   CameraAnchor: {fileID: 1370005292790628591}
+--- !u!114 &-6943458110170123219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750405403183891798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b044038a872914bb97772aebc8b6d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7480997000191555543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,6 +803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899e660c44616f74bac70b61fbc2bbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   items: []
   hand: {fileID: 4445453706809243617}
   collectableItems: Pickup

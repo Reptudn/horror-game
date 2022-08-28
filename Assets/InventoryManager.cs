@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : NetworkBehaviour
 {
 
     public List<GameObject> items = new List<GameObject>();
@@ -17,19 +18,12 @@ public class InventoryManager : MonoBehaviour
 
     public int maxInventorySize = 1;
 
+    private PlayerInventoryController InventoryController;
 
     void Start()
     {
 
-/*
-        for(int i = 0; i < items.Count; i++){
-            
-            if(items[i] != null) AddItemToInventory(items[i]);
-            
-        }
-
-
-*/
+        InventoryController = GetComponent<PlayerInventoryController>();
         itemsInInventory = items.Count;
         if (items.Count > 0){ Show(items[index]); }
 
@@ -45,6 +39,11 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("Inventory full");
             return;
         }
+
+        List<InventoryItem> _Items = new List<InventoryItem>(InventoryController.Items);
+        _Items.Add(new InventoryItem(item.name, item));
+
+        InventoryController.ChangeInventoryContents(_Items);
 
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
@@ -66,33 +65,38 @@ public class InventoryManager : MonoBehaviour
     void Update()
     {
 
-        if(items.Count > 0)
+        if (hasAuthority)
         {
-            if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
-                if(index < items.Count - 1) index++;
-                Debug.Log(index);
-                Show(items[index]);
-            }
 
-            if(Input.GetAxis("Mouse ScrollWheel") < 0){ //scroll down
-                if(index < items.Count && index > 0) index--;
-                Debug.Log(index);
-                Show(items[index]);
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.E)){
-
-            Debug.Log("Deez");
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
-
-                if(hit.transform.gameObject.tag == collectableItems && hit.distance <= allowedPickupDistance) {
-                    Debug.Log("Pickup item hit: " + hit.transform.gameObject.tag + ", " + hit.transform.gameObject.name);
-                    AddItemToInventory(hit.transform.gameObject);
-                    Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red, 5);
-
+            if(items.Count > 0)
+            {
+                if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
+                    if(index < items.Count - 1) index++;
+                    Debug.Log(index);
+                    Show(items[index]);
                 }
-            }     
+
+                if(Input.GetAxis("Mouse ScrollWheel") < 0){ //scroll down
+                    if(index < items.Count && index > 0) index--;
+                    Debug.Log(index);
+                    Show(items[index]);
+                }
+            }
+
+            if(Input.GetKeyDown(KeyCode.E)){
+
+                Debug.Log("Deez");
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
+
+                    if(hit.transform.gameObject.tag == collectableItems && hit.distance <= allowedPickupDistance) {
+                        Debug.Log("Pickup item hit: " + hit.transform.gameObject.tag + ", " + hit.transform.gameObject.name);
+                        AddItemToInventory(hit.transform.gameObject);
+                        Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red, 5);
+
+                    }
+                }     
+
+            }
 
         }
         
