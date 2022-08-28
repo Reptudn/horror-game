@@ -5,7 +5,7 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
 
-    public List<GameObject> items;
+    public List<GameObject> items = new List<GameObject>();
 
     public GameObject hand;
 
@@ -31,9 +31,7 @@ public class InventoryManager : MonoBehaviour
 
 */
         itemsInInventory = items.Count;
-        Debug.Log("In Inventory: " + itemsInInventory + ", Max Size: " + maxInventorySize);
-
-        Show(items[index]);
+        if (items.Count > 0){ Show(items[index]); }
 
     }
 
@@ -50,6 +48,8 @@ public class InventoryManager : MonoBehaviour
 
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
+        item.transform.rotation = hand.transform.rotation;
+        item.transform.localRotation = Quaternion.Euler(90f,0f,0f);
 
         items.Add(item);
         index = itemsInInventory;
@@ -66,22 +66,24 @@ public class InventoryManager : MonoBehaviour
     void Update()
     {
 
-        if(items.Count == 0) return;
+        if(items.Count > 0)
+        {
+            if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
+                if(index < items.Count - 1) index++;
+                Debug.Log(index);
+                Show(items[index]);
+            }
 
-        if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
-            if(index < items.Count - 1) index++;
-            Debug.Log(index);
-            Show(items[index]);
-        }
-
-        if(Input.GetAxis("Mouse ScrollWheel") < 0){ //scroll down
-            if(index < items.Count && index > 0) index--;
-            Debug.Log(index);
-            Show(items[index]);
+            if(Input.GetAxis("Mouse ScrollWheel") < 0){ //scroll down
+                if(index < items.Count && index > 0) index--;
+                Debug.Log(index);
+                Show(items[index]);
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.E)){
 
+            Debug.Log("Deez");
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
 
                 if(hit.transform.gameObject.tag == collectableItems && hit.distance <= allowedPickupDistance) {
