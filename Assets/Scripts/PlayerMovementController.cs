@@ -20,6 +20,9 @@ public class PlayerMovementController : NetworkBehaviour
     public GameObject PlayerModel;
     private Rigidbody RigidBody;
 
+    [Header("Pause Menu")]
+    public GameObject pauseMenuContainer;
+
     private void Start()
     {
         PlayerModel.SetActive(false);
@@ -36,7 +39,8 @@ public class PlayerMovementController : NetworkBehaviour
 
         if (hasAuthority) { 
 
-            Movement();
+            if(!pauseMenuContainer.activeSelf) Movement();
+            
             Grounded = Physics.Raycast(transform.position, Vector3.down, transform.GetComponent<Collider>().bounds.size.y * 0.5f + 0.2f, GroundMask);
 
             if (transform.position.y < -10)
