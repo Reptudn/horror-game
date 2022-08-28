@@ -18,4 +18,5 @@ public class Flashlight : MonoBehaviour
     {
         if (this.gameObject.activeSelf && Input.GetMouseButtonDown(0) && transform.parent != null && transform.parent.name == "Hand"){ light.SetActive(!light.activeSelf); }
     }
+
 }

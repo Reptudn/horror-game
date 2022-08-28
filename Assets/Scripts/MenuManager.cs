@@ -24,6 +24,9 @@ public class MenuManager : MonoBehaviour
         menuItems[3] = options;
         menuItems[4] = credits;
 
+        Cursor.lockState = CursorLockMode.None; 
+        Cursor.visible = true; 
+
         Show(home);
     }
 
