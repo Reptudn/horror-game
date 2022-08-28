@@ -20,6 +20,9 @@ public class PlayerMovementController : NetworkBehaviour
     public GameObject PlayerModel;
     private Rigidbody RigidBody;
 
+    //[Header("Pause Menu")]
+    //public GameObject pauseMenuContainer;
+
     private void Start()
     {
         PlayerModel.SetActive(false);
@@ -29,14 +32,16 @@ public class PlayerMovementController : NetworkBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             if (!PlayerModel.activeSelf){ Spawn(); PlayerModel.SetActive(true); Cursor.lockState = CursorLockMode.Locked; }
         }
 
         if (hasAuthority) { 
 
+            //if(!pauseMenuContainer.activeSelf) 
             Movement();
+            
             Grounded = Physics.Raycast(transform.position, Vector3.down, transform.GetComponent<Collider>().bounds.size.y * 0.5f + 0.2f, GroundMask);
 
             if (transform.position.y < -10)
