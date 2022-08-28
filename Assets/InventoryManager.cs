@@ -9,34 +9,31 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject hand;
 
-    public Camera camera;
-
     public string collectableItems = "Pickup";
     public int allowedPickupDistance = 6;
 
     int index = 0;
     int itemsInInventory = 0;
 
+    public int maxInventorySize = 1;
+
 
     void Start()
     {
 
-        Show(items[index]);
-     
+/*
         for(int i = 0; i < items.Count; i++){
-            if(items[i] == null) {
-                GameObject placeholder = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                placeholder.name = "placeholder";
-                placeholder.SetActive(false);
-                items[i] = new GameObject();
-
-            }
-
-            AddItemToInventory(items[i]);
+            
+            if(items[i] != null) AddItemToInventory(items[i]);
             
         }
 
+
+*/
         itemsInInventory = items.Count;
+        Debug.Log("In Inventory: " + itemsInInventory + ", Max Size: " + maxInventorySize);
+
+        Show(items[index]);
 
     }
 
@@ -46,12 +43,15 @@ public class InventoryManager : MonoBehaviour
 
     public void AddItemToInventory(GameObject item){
 
-        if(items.Count <= itemsInInventory) return;
+        if(maxInventorySize <= itemsInInventory) {
+            Debug.Log("Inventory full");
+            return;
+        }
 
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
 
-        items[itemsInInventory] = item;
+        items.Add(item);
         index = itemsInInventory;
         itemsInInventory++;
         Show(item);
@@ -65,6 +65,9 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
+
+        if(items.Count == 0) return;
+
         if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
             if(index < items.Count - 1) index++;
             Debug.Log(index);
@@ -79,12 +82,12 @@ public class InventoryManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E)){
 
-            if (Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
 
                 if(hit.transform.gameObject.tag == collectableItems && hit.distance <= allowedPickupDistance) {
-
+                    Debug.Log("Pickup item hit: " + hit.transform.gameObject.tag + ", " + hit.transform.gameObject.name);
                     AddItemToInventory(hit.transform.gameObject);
-                    Debug.DrawLine(camera.transform.position, hit.point, Color.red, 5);
+                    Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red, 5);
 
                 }
             }     

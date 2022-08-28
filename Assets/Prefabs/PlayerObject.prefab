@@ -539,6 +539,7 @@ GameObject:
   - component: {fileID: 425884007110673044}
   - component: {fileID: 2483763461066419827}
   - component: {fileID: 4944894029750941818}
+  - component: {fileID: 3889030587139933551}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -620,7 +621,6 @@ MonoBehaviour:
     m_Bits: 64
   Grounded: 0
   PlayerModel: {fileID: 4414367869525604798}
-  pauseMenuContainer: {fileID: 0}
 --- !u!114 &7520905995517670381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,7 +638,6 @@ MonoBehaviour:
   MouseSensitivity: 15
   PlayerModel: {fileID: 4414367869525604798}
   CameraAnchor: {fileID: 1370005292790628591}
-  menuContainer: {fileID: 0}
 --- !u!114 &7480997000191555543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,6 +724,23 @@ CapsuleCollider:
   m_Height: 2.2484093
   m_Direction: 1
   m_Center: {x: 0, y: 0.3128245, z: 0}
+--- !u!114 &3889030587139933551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750405403183891798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899e660c44616f74bac70b61fbc2bbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+  hand: {fileID: 4445453706809243617}
+  collectableItems: Pickup
+  allowedPickupDistance: 6
+  maxInventorySize: 5
 --- !u!1 &7677127464801860851
 GameObject:
   m_ObjectHideFlags: 0

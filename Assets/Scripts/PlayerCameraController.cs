@@ -20,8 +20,8 @@ public class PlayerCameraController : NetworkBehaviour
     private LayerMask PlayerMask;
     private LayerMask OwnPlayerMask;
 
-    [Header("MenuContainer")]
-    public GameObject menuContainer;
+    //[Header("MenuContainer")]
+    //public GameObject menuContainer;
 
     private void Start()
     {
@@ -58,9 +58,7 @@ public class PlayerCameraController : NetworkBehaviour
 
         if (hasAuthority){
 
-            if(SceneManager.GetActiveScene().name != "MainMenu" && !menuContainer.activeSelf){
-
-                
+            if(SceneManager.GetActiveScene().name != "MainMenu"){
 
                 GameObject Head = PlayerModel.transform.Find("Head").gameObject;
 
