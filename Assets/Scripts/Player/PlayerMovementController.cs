@@ -6,6 +6,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     
     [Header("Basic Components")]
+    public GameObject playerObj;
     public Transform playerTransform;
     public CharacterController characterController;
     public Transform groundCheck;
@@ -24,7 +25,7 @@ public class PlayerMovementController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       this.gameObject.SetActive(true);
+       playerObj.SetActive(true);
     }
 
     // Update is called once per frame
