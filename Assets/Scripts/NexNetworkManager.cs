@@ -22,4 +22,9 @@ public class NexNetworkManager : NetworkManager
 
     }
 
+    public void StartGame(string SceneName)
+    {
+        ServerChangeScene(SceneName);
+    }
+
 }

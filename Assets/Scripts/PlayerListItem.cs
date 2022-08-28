@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
+using TMPro;
 
 public class PlayerListItem : MonoBehaviour
 {
@@ -13,9 +14,9 @@ public class PlayerListItem : MonoBehaviour
     public ulong PlayerSteamId;
     public bool AvatarReceived;
 
-    public Text PlayerNameText;
+    public TextMeshProUGUI PlayerNameText;
     public RawImage PlayerIcon;
-    public Text PlayerStatusText;
+    public TextMeshProUGUI PlayerStatusText;
     public bool PlayerStatus;
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
@@ -23,15 +24,15 @@ public class PlayerListItem : MonoBehaviour
     public void ChangeReadyStatus()
     {
         if (PlayerId == 1){
-            PlayerStatusText.text = "";
+            PlayerStatusText.SetText("");
         }
         else if (PlayerStatus)
         {
-            PlayerStatusText.text = "Ready";
+            PlayerStatusText.SetText("Ready");
         }
         else
         {
-            PlayerStatusText.text = "Not Ready";
+            PlayerStatusText.SetText("Not Ready");
         }
     }
 
@@ -45,7 +46,7 @@ public class PlayerListItem : MonoBehaviour
     public void SetPlayerValues()
     {
 
-        PlayerNameText.text = PlayerName;
+        PlayerNameText.SetText(PlayerName);
         ChangeReadyStatus();
         if (!AvatarReceived) { GetPlayerIcon(); }
 

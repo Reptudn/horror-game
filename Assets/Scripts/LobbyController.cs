@@ -5,6 +5,7 @@ using Mirror;
 using Steamworks;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class LobbyController : MonoBehaviour
 {
@@ -12,9 +13,9 @@ public class LobbyController : MonoBehaviour
     public static LobbyController Instance;
 
     // GameObjects
-    public Text LobbyNameText;
+    public TextMeshProUGUI LobbyNameText;
     public Button StatusButton;
-    public Text StatusButtonText;
+    public TextMeshProUGUI StatusButtonText;
     
     // Player Data
     public GameObject PlayerListViewContent;
@@ -57,15 +58,15 @@ public class LobbyController : MonoBehaviour
     {
 
         if (LocalPlayerController.PlayerId == 1){
-            StatusButtonText.text = "Start";
+            StatusButtonText.SetText("Start");
         }
         else if (LocalPlayerController.PlayerStatus)
         {
-            StatusButtonText.text = "Not Ready";
+            StatusButtonText.SetText("Not Ready");
         }
         else
         {
-            StatusButtonText.text = "Ready";
+            StatusButtonText.SetText("Ready");
         }
 
     }
@@ -73,7 +74,7 @@ public class LobbyController : MonoBehaviour
     public void UpdateLobbyName()
     {
         LobbyId = Manager.GetComponent<SteamLobby>().LobbyId;
-        LobbyNameText.text = SteamMatchmaking.GetLobbyData(new CSteamID(LobbyId), "name");
+        LobbyNameText.SetText(SteamMatchmaking.GetLobbyData(new CSteamID(LobbyId), "name"));
     }
 
     public void UpdatePlayerList()
@@ -199,12 +200,9 @@ public class LobbyController : MonoBehaviour
             }
         }
 
-        Debug.Log("AllReady " + AllReady.ToString());
-
-        if (AllReady && LocalPlayerController != null)
+        if (LocalPlayerController != null && LocalPlayerController.PlayerId == 1)
         {
-
-            if (LocalPlayerController.PlayerId == 1)
+            if (AllReady)
             {
                 StatusButton.interactable = true;
             }
@@ -214,4 +212,10 @@ public class LobbyController : MonoBehaviour
             }
         }
     }
+
+    public void StartGame(string SceneName)
+    {
+        LocalPlayerController.CanStartGame(SceneName);
+    }
+
 }
