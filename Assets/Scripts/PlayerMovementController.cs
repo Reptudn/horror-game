@@ -56,7 +56,9 @@ public class PlayerMovementController : NetworkBehaviour
 
     public void Spawn()
     {
-        transform.position = new Vector3(0f, 8f, 0f);
+        GameObject[] spawnPoint = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        if(spawnPoint[0] == null) { transform.position = new Vector3(0f, 8f, 0f); return; }
+        transform.position = spawnPoint[0].transform.position;
     }
 
     public void Movement()
