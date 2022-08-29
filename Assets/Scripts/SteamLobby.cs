@@ -98,7 +98,7 @@ public class SteamLobby : MonoBehaviour
 
         Debug.Log("Getting Lobbies");
         SteamMatchmaking.AddRequestLobbyListResultCountFilter(60);
-        SteamMatchmaking.AddRequestLobbyListStringFilter("name", LobbyIdentifier, ELobbyComparison.k_ELobbyComparisonEqualToOrGreaterThan);
+        SteamMatchmaking.AddRequestLobbyListStringFilter("name", LobbyIdentifier, ELobbyComparison.k_ELobbyComparisonEqual);
         SteamMatchmaking.RequestLobbyList();
 
     }
