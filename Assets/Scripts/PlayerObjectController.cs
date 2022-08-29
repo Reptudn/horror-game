@@ -100,7 +100,9 @@ public class PlayerObjectController : NetworkBehaviour
 
     public void CanStartGame(string SceneName)
     {
-        if (hasAuthority)
+
+ 
+        if (hasAuthority && LobbyController.Instance.CheckIfAllReady())
         {
             Cmd_CanStartGame(SceneName);
         }

@@ -27,4 +27,23 @@ public class NexNetworkManager : NetworkManager
         ServerChangeScene(SceneName);
     }
 
+    public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling)
+    {
+        LobbyController.Instance.LoadScene();
+        base.OnClientChangeScene(newSceneName, sceneOperation, customHandling);
+    }
+
+    public override void OnServerChangeScene(string newSceneName)
+    {
+        Debug.Log("OnServerChangeScene");
+        base.OnServerChangeScene(newSceneName);
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        Debug.Log("OnServerSceneChanged");
+        base.OnServerSceneChanged(sceneName);
+    }
+
+
 }

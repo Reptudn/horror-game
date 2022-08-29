@@ -43,7 +43,6 @@ public class LobbyListManager : MonoBehaviour
     public void DisplayLobbies(List<CSteamID> LobbyIds, LobbyDataUpdate_t result)
     {
 
-        Debug.Log(LobbyIds.ToString() + ", " + result.ToString());
         for (int i = 0; i < LobbyIds.Count; i++)
         {
 
