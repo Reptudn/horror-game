@@ -46,7 +46,6 @@ public class CharController_Motor : NetworkBehaviour {
 
 	public void Spawn()
     {
-		Debug.Log("Spawn!");
         GameObject[] spawnPoint = GameObject.FindGameObjectsWithTag("SpawnPoint");
         if(spawnPoint[0] == null) { SetCharacterPosition(new Vector3(0f, 8f, 0f)); return; }
 		SetCharacterPosition(spawnPoint[0].transform.position);
@@ -63,8 +62,16 @@ public class CharController_Motor : NetworkBehaviour {
 	void Update(){
 
 		if(SceneManager.GetActiveScene().name == "MainMenu") return;
+<<<<<<< Updated upstream
 		if( !hasAuthority ){ Debug.Log("No Authority"); return; }
 		if (!transform.Find("Character").gameObject.activeSelf){ Spawn(); transform.Find("Character").gameObject.SetActive(true); Cursor.lockState = CursorLockMode.Locked; };
+=======
+
+		if (  hasAuthority && !transform.Find("Character").gameObject.activeSelf){ transform.Find("Character").gameObject.SetActive(true); Cursor.lockState = CursorLockMode.Locked; Spawn(); };
+		if ( !hasAuthority && !transform.Find("Character").gameObject.activeSelf){ transform.Find("Character").gameObject.SetActive(true); };
+
+		if( !hasAuthority ){ return; }
+>>>>>>> Stashed changes
 
 		if (transform.position.y < -10f) { Spawn(); }
 
@@ -98,8 +105,6 @@ public class CharController_Motor : NetworkBehaviour {
 			movement *= sprintMultiplier;
 		}
 
-		Debug.Log(movement.ToString());
-
 		if(movement == Vector3.zero){
 
 			animator.SetBool("idle", true);
@@ -123,7 +128,6 @@ public class CharController_Motor : NetworkBehaviour {
 
 		//transform.rotation = Quaternion.Euler(0f, xRotation, 0f);
 		transform.Rotate(0f, rotX * Time.deltaTime, 0f);
-		Debug.Log("Rotation: " + transform.rotation.ToString());
 
 		Camera.main.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
 		Camera.main.transform.position = cam.transform.position;

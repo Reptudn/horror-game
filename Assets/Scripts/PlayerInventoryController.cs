@@ -17,16 +17,12 @@ public class PlayerInventoryController : NetworkBehaviour
 
     public void UpdateInventoryContents(List<InventoryItem> OldValue, List<InventoryItem> NewValue)
     {
-        Debug.Log("Updating Inventory Contents");
-        Debug.Log(OldValue + ", " + NewValue);
         if (isServer)
         {
-            Debug.Log("isServer");
             Items = NewValue;
         }
         if (isClient && (OldValue != NewValue))
         {
-            Debug.Log("isClient");
             _UpdateInventoryContents(NewValue);
         }
     }

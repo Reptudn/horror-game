@@ -6,6 +6,7 @@ using Steamworks;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class LobbyController : MonoBehaviour
     public TextMeshProUGUI LobbyNameText;
     public Button StatusButton;
     public TextMeshProUGUI StatusButtonText;
+    public GameObject LoadingScreen;
     
     // Player Data
     public GameObject PlayerListViewContent;
@@ -184,7 +186,7 @@ public class LobbyController : MonoBehaviour
 
     }
 
-    public void CheckIfAllReady()
+    public bool CheckIfAllReady()
     {
 
         bool AllReady = true;
@@ -211,11 +213,25 @@ public class LobbyController : MonoBehaviour
                 StatusButton.interactable = false;
             }
         }
+
+        return AllReady;
+
     }
 
     public void StartGame(string SceneName)
     {
         LocalPlayerController.CanStartGame(SceneName);
+    }
+
+    public void Leave()
+    {
+        RemovePlayerItem();
+    }
+
+    public void LoadScene()
+    {
+        Debug.Log("LOADING SCENE");
+        LoadingScreen.SetActive(true);
     }
 
 }

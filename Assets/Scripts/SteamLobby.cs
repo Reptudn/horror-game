@@ -20,6 +20,7 @@ public class SteamLobby : MonoBehaviour
     protected Callback<LobbyEnter_t> LobbyEntered;
     protected Callback<LobbyMatchList_t> LobbyList;
     protected Callback<LobbyDataUpdate_t> LobbyDataUpdated;
+    protected Callback<LobbyChatUpdate_t> LobbyChatUpdate;
 
     // Variables
     public ulong LobbyId;
@@ -34,6 +35,18 @@ public class SteamLobby : MonoBehaviour
     public GameObject LobbyScreen;
     public GameObject LobbyListScreen;
 
+    [Range(1, 100)]
+    public int PlayerPerLobby = 16;
+
+    // Enums
+    public enum EChatMemberStateChange {
+        k_EChatMemberStateChangeEntered = 0x0001,
+        k_EChatMemberStateChangeLeft = 0x0002,
+        k_EChatMemberStateChangeDisconnected = 0x0004,
+        k_EChatMemberStateChangeKicked = 0x0008,
+        k_EChatMemberStateChangeBanned = 0x0010,
+    }
+
     private void Start() 
     {
         if (!SteamManager.Initialized) { return; }
@@ -47,13 +60,14 @@ public class SteamLobby : MonoBehaviour
 
         LobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbyList);
         LobbyDataUpdated = Callback<LobbyDataUpdate_t>.Create(OnGetLobbyData);
+        LobbyChatUpdate = Callback<LobbyChatUpdate_t>.Create(OnLobbyChatUpdate);
 
     }
 
     public void HostLobby()
     {
 
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, manager.maxConnections);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, PlayerPerLobby);
 
     }
 
@@ -121,17 +135,30 @@ public class SteamLobby : MonoBehaviour
         LobbyListManager.Instance.DisplayLobbies(LobbyIds, result);
     }
 
+    private void OnLobbyChatUpdate(LobbyChatUpdate_t update)
+    {
+        switch(update.m_rgfChatMemberStateChange)
+        {
+            case (uint) SteamLobby.EChatMemberStateChange.k_EChatMemberStateChangeLeft:
+
+                LobbyController.Instance.UpdatePlayerList();
+                break;
+        }
+    }
+
     public void LeaveLobby(CSteamID LobbyId)
     {
         MainScreen.SetActive(true);
         LobbyScreen.SetActive(false);
         LobbyListScreen.SetActive(false);
+        
         SteamMatchmaking.LeaveLobby(LobbyId);
     }
 
     public void LeaveLobby()
     {
         LeaveLobby((CSteamID) LobbyId);
+        LobbyController.Instance.Leave();
     }
 
     public void JoinLobby(CSteamID LobbyId)
