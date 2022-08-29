@@ -96,7 +96,7 @@ public class CharController_Motor : NetworkBehaviour {
 
 		movement = transform.rotation * movement;
 
-		if(Input.GetKey(KeyCode.LeftShift) && moveLR <= -15f){
+		if(Input.GetKey(KeyCode.LeftShift)){
 			movement *= sprintMultiplier;
 		}
 
