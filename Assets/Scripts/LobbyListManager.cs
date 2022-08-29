@@ -22,6 +22,7 @@ public class LobbyListManager : MonoBehaviour
     public void GetLobbies()
     {
 
+        if (Lobbies.Count > 0){ DestroyLobbies(); }
         SteamLobby.Instance.GetLobbiesList();
 
     }

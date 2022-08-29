@@ -17,12 +17,11 @@ public class LobbyDataEntry : MonoBehaviour
     [Header("UI Elements")]
     public TextMeshProUGUI LobbyNameText;
     public TextMeshProUGUI PlayerCountText;
-    public RawImage LobbyIcon;
 
     public void SetLobbyData()
     {
 
-        LobbyNameText.SetText(LobbyName.Length != 0 ? LobbyName.Split(SteamLobby.LobbyIdentifier)[1] : "Unnamed Lobby");
+        LobbyNameText.SetText(LobbyName.Length != 0 ? (LobbyName.Split(SteamLobby.LobbyIdentifier).Length > 1 ? LobbyName.Split(SteamLobby.LobbyIdentifier)[1] : LobbyName) : "Unnamed Lobby");
         PlayerCountText.SetText(string.Format("({0}/{1})", Players, MaxPlayers != 0 ? MaxPlayers : "--"));
     }
 

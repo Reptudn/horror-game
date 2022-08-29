@@ -96,6 +96,7 @@ public class SteamLobby : MonoBehaviour
     {
         if (LobbyIds.Count > 0) { LobbyIds.Clear(); }
 
+        Debug.Log("Getting Lobbies");
         SteamMatchmaking.AddRequestLobbyListResultCountFilter(60);
         SteamMatchmaking.AddRequestLobbyListStringFilter("name", LobbyIdentifier, ELobbyComparison.k_ELobbyComparisonEqualToOrGreaterThan);
         SteamMatchmaking.RequestLobbyList();
