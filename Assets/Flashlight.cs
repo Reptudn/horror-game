@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class Flashlight : MonoBehaviour
 {
@@ -16,7 +17,17 @@ public class Flashlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.activeSelf && Input.GetMouseButtonDown(0) && transform.parent != null && transform.parent.name == "ItemAnchor"){ light.SetActive(!light.activeSelf); }
+
+        if(this.gameObject.activeSelf && transform.parent != null && transform.parent.name == "ItemAnchor"){
+
+            if (Input.GetMouseButtonDown(0)){ 
+
+                light.SetActive(!light.activeSelf);
+
+            }
+
+        }
+
     }
 
 }
