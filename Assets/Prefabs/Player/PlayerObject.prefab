@@ -1332,6 +1332,7 @@ MonoBehaviour:
   hand: {fileID: 4766673201465027150}
   collectableItems: Pickup
   allowedPickupDistance: 6
+  animator: {fileID: 1512772244242362001}
   maxInventorySize: 5
 --- !u!95 &1512772244242362001
 Animator:

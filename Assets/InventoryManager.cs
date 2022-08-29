@@ -13,6 +13,8 @@ public class InventoryManager : NetworkBehaviour
     public string collectableItems = "Pickup";
     public int allowedPickupDistance = 6;
 
+    public Animator animator;
+
     int index = 0;
     int itemsInInventory = 0;
 
@@ -70,6 +72,7 @@ public class InventoryManager : NetworkBehaviour
 
             if(items.Count > 0)
             {
+
                 if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
                     if(index < items.Count - 1) index++;
                     Debug.Log(index);
@@ -85,11 +88,10 @@ public class InventoryManager : NetworkBehaviour
 
             if(Input.GetKeyDown(KeyCode.E)){
 
-                Debug.Log("Deez");
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
 
                     if(hit.transform.gameObject.tag == collectableItems && hit.distance <= allowedPickupDistance) {
-                        Debug.Log("Pickup item hit: " + hit.transform.gameObject.tag + ", " + hit.transform.gameObject.name);
+
                         AddItemToInventory(hit.transform.gameObject);
                         Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red, 5);
 
@@ -114,10 +116,16 @@ public class InventoryManager : NetworkBehaviour
     void Show(GameObject toShow){
         
         foreach(GameObject o in items){
-            if(o == toShow) o.SetActive(true);
+            if(o == toShow) { o.SetActive(true); SetHoldingAnimationToggle(); }
             else o.SetActive(false);
         }
         
+    }
+
+    void SetHoldingAnimationToggle(){
+        animator.SetBool("holdingItem", true);
+        animator.SetLayerWeight(1, 1f);
+        animator.SetLayerWeight(0, 0.9f);
     }
 
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5917c0e93d180a842b61d1ebc62a195c
+guid: c81aa5de9204d1543be2c061bc3006a1
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
@@ -2792,7 +2792,7 @@ ModelImporter:
     weldVertices: 1
     bakeAxisConversion: 0
     preserveHierarchy: 0
-    skinWeightsMode: 0
+    skinWeightsMode: 1
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
@@ -3244,18 +3244,18 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: BasicMotionsDummyModel(Clone)
+    - name: AnimationCreationModel(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: DummyMesh
-      parentName: BasicMotionsDummyModel(Clone)
+      parentName: AnimationCreationModel(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: DummyRig
-      parentName: BasicMotionsDummyModel(Clone)
+      parentName: AnimationCreationModel(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
