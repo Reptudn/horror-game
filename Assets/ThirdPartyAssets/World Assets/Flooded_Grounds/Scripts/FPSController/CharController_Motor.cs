@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharController_Motor : MonoBehaviour {
 
@@ -19,7 +20,7 @@ public class CharController_Motor : MonoBehaviour {
 	public Animator animator;
 
 	void Start(){
-		Cursor.lockState = CursorLockMode.Locked;
+		if(SceneManager.GetActiveScene().name != "MainMenu") Cursor.lockState = CursorLockMode.Locked;
 		character = GetComponent<CharacterController> ();
 	}
 
@@ -35,6 +36,9 @@ public class CharController_Motor : MonoBehaviour {
 
 
 	void Update(){
+
+		if(SceneManager.GetActiveScene().name == "MainMenu") return;
+
 		moveFB = Input.GetAxis ("Horizontal") * speed;
 		moveLR = Input.GetAxis ("Vertical") * speed;
 
