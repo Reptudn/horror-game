@@ -84,6 +84,9 @@ public class CharController_Motor : MonoBehaviour {
 	}
 
 
+	void Jump(){
+		
+	}
 
 
 }
