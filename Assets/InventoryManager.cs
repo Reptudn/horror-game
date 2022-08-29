@@ -48,7 +48,7 @@ public class InventoryManager : NetworkBehaviour
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
         item.transform.rotation = hand.transform.rotation;
-        item.transform.localRotation = Quaternion.Euler(90f,0f,0f);
+        item.transform.localRotation = Quaternion.Euler(0f,0f,0f);
 
         items.Add(item);
         index = itemsInInventory;
