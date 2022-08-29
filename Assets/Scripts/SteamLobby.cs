@@ -79,7 +79,8 @@ public class SteamLobby : MonoBehaviour
         manager.StartHost();
 
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
-        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", LobbyIdentifier + SteamFriends.GetPersonaName().ToString() + "'s Lobby");
+        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", SteamFriends.GetPersonaName().ToString() + "'s Lobby");
+        SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "identifier", LobbyIdentifier);
 
     }
 
@@ -112,7 +113,7 @@ public class SteamLobby : MonoBehaviour
 
         Debug.Log("Getting Lobbies");
         SteamMatchmaking.AddRequestLobbyListResultCountFilter(60);
-        SteamMatchmaking.AddRequestLobbyListStringFilter("name", LobbyIdentifier, ELobbyComparison.k_ELobbyComparisonEqualToOrGreaterThan);
+        SteamMatchmaking.AddRequestLobbyListStringFilter("identifier", LobbyIdentifier, ELobbyComparison.k_ELobbyComparisonEqual);
         SteamMatchmaking.RequestLobbyList();
 
     }
