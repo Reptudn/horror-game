@@ -62,17 +62,12 @@ public class CharController_Motor : NetworkBehaviour {
 	void Update(){
 
 		if(SceneManager.GetActiveScene().name == "MainMenu") return;
-<<<<<<< Updated upstream
-		if( !hasAuthority ){ Debug.Log("No Authority"); return; }
-		if (!transform.Find("Character").gameObject.activeSelf){ Spawn(); transform.Find("Character").gameObject.SetActive(true); Cursor.lockState = CursorLockMode.Locked; };
-=======
 
 		if (  hasAuthority && !transform.Find("Character").gameObject.activeSelf){ transform.Find("Character").gameObject.SetActive(true); Cursor.lockState = CursorLockMode.Locked; Spawn(); };
 		if ( !hasAuthority && !transform.Find("Character").gameObject.activeSelf){ transform.Find("Character").gameObject.SetActive(true); };
 
 		if( !hasAuthority ){ return; }
->>>>>>> Stashed changes
-
+		
 		if (transform.position.y < -10f) { Spawn(); }
 
 		float MoveX = Input.GetAxis ("Horizontal");
