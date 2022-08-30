@@ -124,8 +124,7 @@ public class InventoryManager : NetworkBehaviour
 
     void SetHoldingAnimationToggle(){
         animator.SetBool("holdingItem", true);
-        animator.SetLayerWeight(1, 1f);
-        animator.SetLayerWeight(0, 0.9f);
+        animator.SetLayerWeight(4, 1f);
     }
 
 }

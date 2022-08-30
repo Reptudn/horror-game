@@ -1,0 +1,30 @@
+Thank you very much for using my conversion!
+
+Please remember that this vmd-motion is not created by me.
+This Dance-motion is basically only converted from an existing vmd-file.
+
+I only have convert this motion and fixing some keyframe issues and create some animation keyframes new to make it smoother for VRChat Avatars.
+
+-----------------------------------------------
+
+Rules:
+- DO NOT redistribute this motion-file(Only available on VRCMods)!
+- DO NOT sell this motion-file!
+- DO NOT put this file on a avatar-unity project and sell the motion with your avatar!
+- DO NOT claim as your own!
+- DO NOT upload this motion again to VRCMods inside a animation package!
+- DO NOT manipulate this motion or change something on the animation!
+- Enjoy! <3
+
+-----------------------------------------------
+
+Advice:
+For correct work of the motion, please be sure your avatar is already Unity-ready with Visemes(LipSync) and Eye Tracking.
+
+Otherwise your Avatar is not able to make some gestures during the dance.
+
+Take a look on this Tutorial: VRChat Eye tracking Avatar Tutorial.
+https://www.youtube.com/watch?v=gCPcg9y4ZBM
+-----------------------------------------------
+
+November 2020 ~Evendora~
