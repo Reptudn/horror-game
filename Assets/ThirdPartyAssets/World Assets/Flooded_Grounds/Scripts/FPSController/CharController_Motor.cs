@@ -11,6 +11,10 @@ public class CharController_Motor : NetworkBehaviour {
 	public float sensitivity = 60.0f;
 	public float WaterHeight = 15.5f;
 	public float sprintMultiplier = 1.4f;
+
+	public GameObject shoulder;
+	public GameObject itemAnchor;
+
 	CharacterController character;
 	public GameObject cam;
 	float moveFB, moveLR;
@@ -91,29 +95,43 @@ public class CharController_Motor : NetworkBehaviour {
 
 		CheckForWaterHeight();
 		CameraRotation();
+		RotateArm();
+
+		//head move up down
+		animator.SetFloat("HeadAngle", -xRotation);
 
 		Vector3 movement = new Vector3 (moveFB, gravity, moveLR);
 
 		movement = transform.rotation * movement;
 
+		bool sprint = false;
 		if(Input.GetKey(KeyCode.LeftShift)){
 			movement *= sprintMultiplier;
+			sprint = true;
 		}
 
 		if(movement == Vector3.zero){
 
-			animator.SetBool("idle", true);
+			animator.SetFloat("Forward", 0f);
+			animator.SetFloat("Sideways", 0f);
 
 		} else {
 			
-			animator.SetBool("idle", false);
-			animator.SetInteger("VelocityForward", (int)movement.z * Denominator);
-			animator.SetInteger("VelocityLeft", (int)(-movement.x) * Denominator);
-			animator.SetInteger("VelocityUp", (int)movement.y * Denominator);
+			if(sprint){
 
+				animator.SetFloat("Forward", MoveY * 23);
+				animator.SetFloat("Sideways", MoveX * 23);
+
+			} else {
+
+				animator.SetFloat("Forward", MoveY);
+				animator.SetFloat("Sideways", MoveX);
+
+			}
+			
 		}
 
-		character.Move (movement * Time.deltaTime);
+		character.Move(movement * Time.deltaTime);
 	}
 
 
@@ -128,6 +146,7 @@ public class CharController_Motor : NetworkBehaviour {
 		Camera.main.transform.position = cam.transform.position;
 	}
 
+	void RotateArm(){ animator.SetFloat("FlashlightAngle", xRotation);}
 
 	void Jump(){
 		

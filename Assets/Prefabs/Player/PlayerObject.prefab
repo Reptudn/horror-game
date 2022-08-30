@@ -1369,9 +1369,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   speed: 15
-  sensitivity: 60
+  sensitivity: 100
   WaterHeight: -10
   sprintMultiplier: 1.4
+  shoulder: {fileID: 7898478419972088909}
+  itemAnchor: {fileID: 4766673201465027150}
   cam: {fileID: 2748922343351865626}
   animator: {fileID: 1512772244242362001}
 --- !u!143 &5263874437586552047
