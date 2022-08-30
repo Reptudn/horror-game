@@ -146,7 +146,7 @@ public class CharController_Motor : NetworkBehaviour {
 		Camera.main.transform.position = cam.transform.position;
 	}
 
-	void RotateArm(){ animator.SetFloat("FlashlightAngle", xRotation);}
+	void RotateArm(){ animator.SetFloat("FlashlightAngle", -xRotation);}
 
 	void Jump(){
 		

@@ -16,6 +16,7 @@ public class light : MonoBehaviour
     
     void changeLight(){
         lightPog.color = new Color(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255));
-        lightPog.intensity = Random.Range(1, 10);
+        lightPog.intensity = Random.Range(1, 4);
     }
+
 }

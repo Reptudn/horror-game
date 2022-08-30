@@ -191,6 +191,32 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 2
+--- !u!1102 &-1339488270332105069
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: working flashlight down
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 94c16878debed4644998a503130a54e1, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1101 &-1058064123398822434
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -514,15 +540,15 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 232c73f246980434281de0a02b311db7, type: 2}
-    m_Threshold: 0
+    m_Motion: {fileID: 7400000, guid: bcbf4b65dc818574c99769a793e3b290, type: 2}
+    m_Threshold: 1
     m_Position: {x: 90, y: 90}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Height
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: bcbf4b65dc818574c99769a793e3b290, type: 2}
+    m_Motion: {fileID: 7400000, guid: 48a97c28b8306f74da99625835e41d84, type: 2}
     m_Threshold: 1
     m_Position: {x: -90, y: -90}
     m_TimeScale: 1
@@ -531,7 +557,7 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: FlashlightAngle
   m_BlendParameterY: FlashlightAngle
-  m_MinThreshold: 0
+  m_MinThreshold: 1
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
@@ -596,7 +622,10 @@ AnimatorStateMachine:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: default
-  m_ChildStates: []
+  m_ChildStates:
+  - serializedVersion: 1
+    m_State: {fileID: -1339488270332105069}
+    m_Position: {x: 200, y: 0, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -606,4 +635,4 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 0}
+  m_DefaultState: {fileID: -1339488270332105069}
