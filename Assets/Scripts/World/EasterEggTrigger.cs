@@ -24,7 +24,7 @@ public class EasterEggTrigger : MonoBehaviour
 
     void Update(){
 
-        if(Input.GetKeyDown(KeyCode.F6)) easteregg.SetActive(easteregg.activeSelf);
+        if(Input.GetKeyDown(KeyCode.F6)) easteregg.SetActive(!easteregg.activeSelf);
 
     }
     
