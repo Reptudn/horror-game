@@ -44,7 +44,7 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        MoveTowardsClosestPlayer();
+        Move();
     }
 
     private void MoveTowardsClosestPlayer(){
