@@ -1236,8 +1236,8 @@ GameObject:
   - component: {fileID: 5263874437586552047}
   - component: {fileID: 6983245510821242874}
   - component: {fileID: 8458603671596283440}
-  - component: {fileID: 3599566187448860225}
   - component: {fileID: 4125836393899872046}
+  - component: {fileID: 7403865293616301651}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -1337,6 +1337,7 @@ MonoBehaviour:
   allowedPickupDistance: 6
   animator: {fileID: 1512772244242362001}
   maxInventorySize: 5
+  pickupKey: 101
 --- !u!95 &1512772244242362001
 Animator:
   serializedVersion: 4
@@ -1447,20 +1448,6 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
---- !u!114 &3599566187448860225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750405403183891798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bab27abfe1099b47bdd69e42118afde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionText: 
-  canBeInteractedWith: 0
 --- !u!114 &4125836393899872046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1476,6 +1463,20 @@ MonoBehaviour:
   interactionRange: 10
   interactable: {fileID: 2439960700148985795}
   interactionText: {fileID: 548408318346584158}
+  interactionKey: 102
+--- !u!114 &7403865293616301651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750405403183891798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e44ebb24578154a8ac4260ff9c5ec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hud: {fileID: 2105150135752975839}
 --- !u!1 &6904817432851726522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,7 +2154,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7504066574981008826, guid: 268240ca9e5ce63419b8da55d2999697, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 268240ca9e5ce63419b8da55d2999697, type: 3}
 --- !u!114 &548408318346584158 stripped
 MonoBehaviour:
@@ -2169,6 +2171,11 @@ MonoBehaviour:
 --- !u!224 &1409069890076140658 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4165985715036638470, guid: 268240ca9e5ce63419b8da55d2999697, type: 3}
+  m_PrefabInstance: {fileID: 3053027637954062708}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2105150135752975839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3992571443695602859, guid: 268240ca9e5ce63419b8da55d2999697, type: 3}
   m_PrefabInstance: {fileID: 3053027637954062708}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2439960700148985795 stripped

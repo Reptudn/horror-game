@@ -20,6 +20,8 @@ public class InventoryManager : NetworkBehaviour
 
     public int maxInventorySize = 1;
 
+    public KeyCode pickupKey = KeyCode.E;
+
     private PlayerInventoryController InventoryController;
 
     void Start()
@@ -86,7 +88,7 @@ public class InventoryManager : NetworkBehaviour
                 }
             }
 
-            if(Input.GetKeyDown(KeyCode.E)){
+            if(Input.GetKeyDown(pickupKey)){
 
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
 

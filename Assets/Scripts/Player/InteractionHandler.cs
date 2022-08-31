@@ -5,26 +5,21 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(Interactable))]
 public class InteractionHandler : MonoBehaviour
 {
 
     public float interactionRange = 10f;
     public GameObject interactable;
     public TextMeshProUGUI interactionText;
-    public float textDuration = 2f;
 
-    private RaycastHit hit;
+    public KeyCode interactionKey = KeyCode.F;
 
 
-    // Start is called before the first frame update
     void Start()
     {
-        interactable.SetActive(false);
-        InvokeRepeating("RemoveInteractionText", 1f, textDuration);
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -44,38 +39,49 @@ public class InteractionHandler : MonoBehaviour
 
             if(hit.distance <= interactionRange) { //when in range
 
-                var comp = hit.transform.gameObject.GetComponent<Interactable>();
-                if(comp == null) return; //not interactable
+                string tag = hit.transform.gameObject.tag;
 
-                interactable.SetActive(true);
-                GetInteractableInfo(comp);
-                this.hit = hit;
+                if(tag == "Interactable" || tag == "Pickup") {
+        
+                    if(Input.GetKeyDown(interactionKey) && tag == "Interactable") Interact(hit.transform.gameObject);
 
-                Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.cyan, Time.deltaTime);
+                    var interactionInfo = hit.transform.gameObject.GetComponent<InteractionInfo>();
 
-            }
+                    if(interactionInfo != null) GetInteractableInfo(interactionInfo);
 
-        }
+                    Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.cyan, Time.deltaTime);
+                    Debug.Log("Hit: " + hit.transform.gameObject.name);
+
+                } else RemoveInteractionText();
+
+
+            } else RemoveInteractionText();
+
+            
+        } else RemoveInteractionText();
 
         
         
 
     }
 
-    private void GetInteractableInfo(Interactable interactableComp){
+    private void GetInteractableInfo(InteractionInfo interactableComp){
 
         if(!interactableComp.canBeInteractedWith) return;
 
-        Debug.Log(interactableComp.interactionText);
+        //Debug.Log(interactableComp.interactionText);
         interactionText.SetText(interactableComp.interactionText);
-        Debug.Log("Interaction text: " + interactionText.text);
+        //Debug.Log("Interaction text: " + interactionText.text);
         interactable.SetActive(true);
-
 
     }
 
     private void RemoveInteractionText() { 
         interactionText.SetText(""); 
+    }
+
+    private void Interact(GameObject interact){
+        interact.SendMessage("Interaction");
     }
 
 }
