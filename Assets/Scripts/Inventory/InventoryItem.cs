@@ -5,24 +5,40 @@ using System;
 using Mirror;
 
 [System.Serializable]
-public class InventoryItem
+[CreateAssetMenu(menuName="Inventory/Item")]
+public class InventoryItem : ScriptableObject
 {
-    public string Name = "Deez Nuts";
-    public GameObject Object;
 
-    public InventoryItem(String Name, GameObject Object)
-    {
-        this.Name = Name;
-        this.Object = Object;
+    public enum AttributeType {
+        String,
+        Integer,
+        Boolean
     }
+
+    [Serializable]
+    public struct ItemAttribute {
+
+        public string Key;
+        public AttributeType Type;
+
+    }
+
+    public string Id;
+    public string DisplayName;
+    public GameObject Prefab;
+
+    public List<ItemAttribute> Attributes = new List<ItemAttribute>();
+
 }
 
+
+/*
 public static class InventoryItemWriteFunctions
 {
     public static void WriteInventoryItem(this NetworkWriter writer, InventoryItem value)
     {
         writer.WriteString(value.Name);
-        writer.WriteGameObject(value.Object);
+        writer.WriteGameObject(value.Prefab);
     }
     public static InventoryItem ReadInventoryItem(this NetworkReader reader)
     {
@@ -33,3 +49,4 @@ public static class InventoryItemWriteFunctions
        
     }
 }
+*/

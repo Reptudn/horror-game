@@ -20,8 +20,6 @@ public class InventoryManager : NetworkBehaviour
 
     public int maxInventorySize = 1;
 
-    public KeyCode pickupKey = KeyCode.E;
-
     private PlayerInventoryController InventoryController;
 
     void Start()
@@ -44,10 +42,10 @@ public class InventoryManager : NetworkBehaviour
             return;
         }
 
-        List<InventoryItem> _Items = new List<InventoryItem>(InventoryController.Items);
-        _Items.Add(new InventoryItem(item.name, item));
+        //List<InventoryItem> _Items = new List<GameObject>(InventoryController.Items);
+        //_Items.Add(new InventoryItem(item.name, item));
 
-        InventoryController.ChangeInventoryContents(_Items);
+        //InventoryController.ChangeInventoryContents(_Items);
 
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
@@ -88,7 +86,7 @@ public class InventoryManager : NetworkBehaviour
                 }
             }
 
-            if(Input.GetKeyDown(pickupKey)){
+            if(Input.GetKeyDown(KeyCode.E)){
 
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)){
 
