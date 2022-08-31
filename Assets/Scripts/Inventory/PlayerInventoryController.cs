@@ -7,15 +7,15 @@ public class PlayerInventoryController : NetworkBehaviour
 {
     
     public InventoryItem EquippedItem;
-    [SyncVar(hook = nameof(UpdateInventoryContents))] public List<InventoryItem> Items;
+    [SyncVar(hook = nameof(UpdateInventoryContents))] public List<GameObject> Items;
     
     [Command]
-    private void Cmd_UpdateInventoryContents(List<InventoryItem> NewValue)
+    private void Cmd_UpdateInventoryContents(List<GameObject> NewValue)
     {
         UpdateInventoryContents(Items, NewValue);
     }
 
-    public void UpdateInventoryContents(List<InventoryItem> OldValue, List<InventoryItem> NewValue)
+    public void UpdateInventoryContents(List<GameObject> OldValue, List<GameObject> NewValue)
     {
         if (isServer)
         {
@@ -27,8 +27,8 @@ public class PlayerInventoryController : NetworkBehaviour
         }
     }
 
-    void _UpdateInventoryContents(List<InventoryItem> NewValue) { Items = NewValue; }
+    void _UpdateInventoryContents(List<GameObject> NewValue) { Items = NewValue; }
 
-    public void ChangeInventoryContents(List<InventoryItem> NewValue) { Cmd_UpdateInventoryContents(NewValue); }
+    public void ChangeInventoryContents(List<GameObject> NewValue) { Cmd_UpdateInventoryContents(NewValue); }
 
 }

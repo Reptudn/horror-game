@@ -42,10 +42,10 @@ public class InventoryManager : NetworkBehaviour
             return;
         }
 
-        List<InventoryItem> _Items = new List<InventoryItem>(InventoryController.Items);
-        _Items.Add(new InventoryItem(item.name, item));
+        //List<InventoryItem> _Items = new List<GameObject>(InventoryController.Items);
+        //_Items.Add(new InventoryItem(item.name, item));
 
-        InventoryController.ChangeInventoryContents(_Items);
+        //InventoryController.ChangeInventoryContents(_Items);
 
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
