@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 
-public class CharController_Motor : NetworkBehaviour {
+public class PlayerController : NetworkBehaviour {
 
 	[Header("Movement and Mouse Attributes")]
 	public float speed = 10.0f;
 	public float sensitivity = 60.0f;
 	public float WaterHeight = 15.5f;
 	public float sprintMultiplier = 1.4f;
-
-	public GameObject shoulder;
-	public GameObject itemAnchor;
 
 	CharacterController character;
 	public GameObject cam;
