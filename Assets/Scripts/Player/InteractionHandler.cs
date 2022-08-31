@@ -11,13 +11,15 @@ public class InteractionHandler : MonoBehaviour
     public float interactionRange = 10f;
     public GameObject interactable;
     public TextMeshProUGUI interactionText;
+    public TextMeshProUGUI interactionKeyText;
+    public GameObject interactionKeyObject;
 
     public KeyCode interactionKey = KeyCode.F;
-
+    public KeyCode pickupKey = KeyCode.E;
 
     void Start()
     {
-        
+        interactionKeyObject.SetActive(false);
     }
 
     void Update()
@@ -47,10 +49,12 @@ public class InteractionHandler : MonoBehaviour
 
                     var interactionInfo = hit.transform.gameObject.GetComponent<InteractionInfo>();
 
-                    if(interactionInfo != null) GetInteractableInfo(interactionInfo);
+                    if(interactionInfo != null){ 
+                        if(tag == "Interactable") GetInteractableInfo(interactionInfo, interactionKey.ToString());
+                        else GetInteractableInfo(interactionInfo, pickupKey.ToString());
+                    } 
 
                     Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.cyan, Time.deltaTime);
-                    Debug.Log("Hit: " + hit.transform.gameObject.name);
 
                 } else RemoveInteractionText();
 
@@ -65,22 +69,23 @@ public class InteractionHandler : MonoBehaviour
 
     }
 
-    private void GetInteractableInfo(InteractionInfo interactableComp){
+    private void GetInteractableInfo(InteractionInfo interactableComp, string key){
 
         if(!interactableComp.canBeInteractedWith) return;
 
-        //Debug.Log(interactableComp.interactionText);
-        interactionText.SetText(interactableComp.interactionText);
-        //Debug.Log("Interaction text: " + interactionText.text);
-        interactable.SetActive(true);
+        interactionKeyObject.SetActive(true);
+        interactionText.SetText("<align=\"left\"><b>" + interactableComp.interactionText + "</b>");
+        interactionKeyText.SetText(key);
 
     }
 
     private void RemoveInteractionText() { 
+        interactionKeyObject.SetActive(false);
         interactionText.SetText(""); 
     }
 
     private void Interact(GameObject interact){
+        if(!interact.GetComponent<InteractionInfo>().canBeInteractedWith) return;
         interact.SendMessage("Interaction");
     }
 
