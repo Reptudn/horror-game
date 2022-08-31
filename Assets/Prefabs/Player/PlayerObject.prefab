@@ -1238,6 +1238,7 @@ GameObject:
   - component: {fileID: 8458603671596283440}
   - component: {fileID: 4125836393899872046}
   - component: {fileID: 7403865293616301651}
+  - component: {fileID: 3755099472589055425}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -1313,9 +1314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  EquippedItem:
-    Name: 
-    Object: {fileID: 0}
+  EquippedItem: {fileID: 0}
   Items: []
 --- !u!114 &3889030587139933551
 MonoBehaviour:
@@ -1376,8 +1375,6 @@ MonoBehaviour:
   sensitivity: 100
   WaterHeight: -10
   sprintMultiplier: 1.4
-  shoulder: {fileID: 7898478419972088909}
-  itemAnchor: {fileID: 4766673201465027150}
   cam: {fileID: 2748922343351865626}
   animator: {fileID: 1512772244242362001}
 --- !u!143 &5263874437586552047
@@ -1477,6 +1474,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hud: {fileID: 2105150135752975839}
+--- !u!136 &3755099472589055425
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750405403183891798}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6904817432851726522
 GameObject:
   m_ObjectHideFlags: 0
