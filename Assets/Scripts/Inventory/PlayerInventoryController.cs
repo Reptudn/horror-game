@@ -141,7 +141,9 @@ public class PlayerInventoryController : NetworkBehaviour
     { 
         ChangeInventoryContents(new List<InventoryItemInstance>(Items)); 
         if (EquippedIndex != -1){ this.EquippedItem = this.Items[EquippedIndex]; } 
-        else { this.EquippedItem = null; }}
+        else { this.EquippedItem = null; }
+        SetEquippedIndex(EquippedIndex);
+    }
 
     // Private Secondary Update Handlers
 
