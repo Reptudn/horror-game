@@ -860,14 +860,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4766673201465027150}
-  m_LocalRotation: {x: -0.91622156, y: 0.33260792, z: 0.14756432, w: -0.1677344}
-  m_LocalPosition: {x: 0.066195674, y: 0.03650468, z: -0.009900019}
+  m_LocalRotation: {x: 0.5965526, y: -0.3011396, z: 0.54418576, w: 0.5072493}
+  m_LocalPosition: {x: 0.0391, y: 0.0336, z: -0.0163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2097744454070303232}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -192.076, y: 22.992996, z: 42.369003}
+  m_LocalEulerAnglesHint: {x: 68.9, y: -287.271, z: -212.379}
 --- !u!1 &4822509441516484732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,19 +1227,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6620171219837146360}
-  - component: {fileID: 1085534028391325392}
   - component: {fileID: 6444717431624380318}
   - component: {fileID: -6943458110170123219}
-  - component: {fileID: 3889030587139933551}
   - component: {fileID: 1512772244242362001}
   - component: {fileID: 7107545623046478657}
   - component: {fileID: 5263874437586552047}
   - component: {fileID: 6983245510821242874}
   - component: {fileID: 8458603671596283440}
+  - component: {fileID: 1085534028391325392}
   - component: {fileID: 4125836393899872046}
   - component: {fileID: 7403865293616301651}
   - component: {fileID: 3755099472589055425}
-  - component: {fileID: 1440719227059523760}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -1265,23 +1263,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1085534028391325392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750405403183891798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 9545d9ba014840f469e275d9a5adc7b6
-  hasSpawned: 0
 --- !u!114 &6444717431624380318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1315,29 +1296,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  EquippedItem: {fileID: 0}
+  EquippedIndex: -1
+  EquippedItem:
+    Data: {fileID: 0}
+    Attributes: []
+  InventorySize: 5
+  PickupKey: 101
+  MaxPickupDistance: 6
+  ItemTag: Pickup
+  EquippedItemTag: EquippedItem
+  PlayerAnimator: {fileID: 1512772244242362001}
+  ItemAnchor: {fileID: 4766673201465027150}
   Items: []
---- !u!114 &3889030587139933551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750405403183891798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899e660c44616f74bac70b61fbc2bbfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  items: []
-  hand: {fileID: 4766673201465027150}
-  collectableItems: Pickup
-  allowedPickupDistance: 6
-  animator: {fileID: 1512772244242362001}
-  maxInventorySize: 5
-  pickupKey: 101
 --- !u!95 &1512772244242362001
 Animator:
   serializedVersion: 4
@@ -1447,6 +1417,23 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &1085534028391325392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750405403183891798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 9545d9ba014840f469e275d9a5adc7b6
+  hasSpawned: 0
 --- !u!114 &4125836393899872046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,22 +1483,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1440719227059523760
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6750405403183891798}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &6904817432851726522
 GameObject:
   m_ObjectHideFlags: 0
