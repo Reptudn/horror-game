@@ -7,8 +7,9 @@ public class PlayerInventoryController : NetworkBehaviour
 {
     
     [Header("Equipped")]
+    [ReadOnlyProperty()]
     public int EquippedIndex = -1;
-    public InventoryItem EquippedItem;
+    public InventoryItemInstance EquippedItem;
 
     [Header("Settings")]
     public int InventorySize = 5;
@@ -16,6 +17,7 @@ public class PlayerInventoryController : NetworkBehaviour
     [Range(1,10)]
     public float MaxPickupDistance = 6f;
     public string ItemTag = "Pickup";
+    public string EquippedItemTag = "EquippedItem";
 
     [Header("Components")]
     [RenameProperty("Animator")]
@@ -47,15 +49,69 @@ public class PlayerInventoryController : NetworkBehaviour
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
-                if (EquippedIndex < Items.Count - 1) EquippedIndex++;
+                if (EquippedIndex < Items.Count - 1) { EquippedIndex++; }
+                else if (EquippedIndex == Items.Count - 1) { EquippedIndex = -1; }
+                UpdateEquippedItem();
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0)
             {
-                if (EquippedIndex > -1) EquippedIndex--;
+                if (EquippedIndex > -1) { EquippedIndex--; }
+                else if (EquippedIndex == -1) { EquippedIndex = Items.Count - 1; }
+                UpdateEquippedItem();
+            }
+
+            if (Input.GetKeyDown(PickupKey)){
+
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+                {
+
+                    if (hit.transform.gameObject.tag == ItemTag && hit.distance <= MaxPickupDistance) 
+                    {
+
+                        if (hit.transform.gameObject.GetComponent<InventoryItemRefrence>() != null)
+                        {
+
+                            AddItem(hit.transform.gameObject.GetComponent<InventoryItemRefrence>().Item);
+                            Destroy(hit.transform.gameObject);
+                            Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red, 5);
+
+                        }
+                    }
+                }     
             }
         }
-
     }
+
+    private void UpdateEquippedItem()
+    {
+        foreach (Transform child in ItemAnchor.transform) { GameObject.Destroy(child.gameObject); }
+        if (EquippedIndex >= 0)
+        {
+            EquippedItem = Items[EquippedIndex];
+            GameObject Item = Instantiate(EquippedItem.Data.Prefab);
+            Item.transform.SetParent(ItemAnchor.transform);
+            Item.transform.localPosition = new Vector3(0f, 0f, 0f);
+            Item.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+            Item.transform.tag = EquippedItemTag;
+            ToggleHoldingAnimation(true);
+        }
+        else if (EquippedIndex == -1)
+        {
+            EquippedItem = null;
+            ToggleHoldingAnimation(false);
+        }
+    }
+
+    private void ToggleHoldingAnimation(bool State)
+    {
+        Debug.Log("Holding Item: " + State + ", " + (State ? 1f : 0f).ToString());
+        PlayerAnimator.SetBool("holdingItem", State);
+        PlayerAnimator.SetLayerWeight(4, State ? 1f : 0f);
+    }
+
+    public List<InventoryItemInstance> GetDereferencedItemList() { return new List<InventoryItemInstance>(Items); }
+
+    // Networking
 
     [Command]
     private void Cmd_UpdateInventoryContents(List<InventoryItemInstance> NewValue)
@@ -74,6 +130,8 @@ public class PlayerInventoryController : NetworkBehaviour
             _UpdateInventoryContents(NewValue);
         }
     }
+
+    public void TriggerNetworkSync() { ChangeInventoryContents(new List<InventoryItemInstance>(Items) ); this.EquippedItem = this.Items[EquippedIndex]; }
 
     void _UpdateInventoryContents(List<InventoryItemInstance> NewValue) { Items = NewValue; }
 

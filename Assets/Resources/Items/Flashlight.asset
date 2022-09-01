@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: flashlight
   DisplayName: Flashlight
-  Prefab: {fileID: 2881789867668249886, guid: 5badee120037dd3479d4f11c08c184e9, type: 3}
+  Prefab: {fileID: 7772216449123913341, guid: c331ce248b54e874dbf12824f4959ca6, type: 3}
   Attributes:
   - Key: Enabled
     Type: 2
