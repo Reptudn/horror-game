@@ -9,6 +9,9 @@ public class PauseMenu : MonoBehaviour
     [Header("Main")]
     public GameObject pauseMenuContainer;
 
+    public GameObject[] nonOptionsMenu;
+    public GameObject optionsMenu;
+
     [Header("Other Components")]
     public GameObject crosshairContainer;
     public GameObject interactionContainer;
@@ -21,9 +24,14 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pauseMenuContainer.SetActive(false);
-        crosshairContainer.SetActive(true);
-        interactionContainer.SetActive(true);
+
+        if(SceneManager.GetActiveScene().name == "MainMenu") { pauseMenuContainer.SetActive(false); return; } else {
+
+            pauseMenuContainer.SetActive(false);
+            crosshairContainer.SetActive(true);
+            interactionContainer.SetActive(true);
+            optionsMenu.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -42,11 +50,33 @@ public class PauseMenu : MonoBehaviour
             opened = !opened;
             playerController.paused = opened;
 
-            if(opened) Cursor.lockState = CursorLockMode.None;
-            else Cursor.lockState = CursorLockMode.Locked;
+            if(opened) {
+                Cursor.lockState = CursorLockMode.None;
+                foreach(var o in nonOptionsMenu) o.SetActive(true);
+            }
+            else { Cursor.lockState = CursorLockMode.Locked; 
+                pauseMenuContainer.SetActive(false);
+                optionsMenu.SetActive(false); 
+                crosshairContainer.SetActive(true);
+                interactionContainer.SetActive(true);
+            }
 
         }
 
+    }
+
+    
+    public void Options(){
+
+        optionsMenu.SetActive(true);
+
+        foreach(var o in nonOptionsMenu) o.SetActive(false);
+
+    }
+
+    public void Back(){
+        transform.gameObject.SetActive(false);
+        pauseMenuContainer.SetActive(true);
     }
 
     public void Resume(){
