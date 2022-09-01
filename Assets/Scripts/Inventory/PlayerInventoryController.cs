@@ -84,6 +84,9 @@ public class PlayerInventoryController : NetworkBehaviour
 
     private void UpdateEquippedItem()
     {
+
+        SetEquippedIndex(EquippedIndex);
+
         foreach (Transform child in ItemAnchor.transform) { GameObject.Destroy(child.gameObject); }
         if (EquippedIndex >= 0)
         {
