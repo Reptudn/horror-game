@@ -53,6 +53,15 @@ public class InventoryItemInstance
             this.Type = InventoryItem.AttributeType.String;
         }
 
+        public ItemAttribute(ItemAttribute Attribute)
+        {
+            this.Key = Attribute.Key;
+            this.Type = Attribute.Type;
+            this.StringValue = Attribute.StringValue;
+            this.IntegerValue = Attribute.IntegerValue;
+            this.BooleanValue = Attribute.BooleanValue;
+        }
+
     }
 
     [System.NonSerialized]
@@ -62,10 +71,7 @@ public class InventoryItemInstance
 
     public List<ItemAttribute> Attributes = new List<ItemAttribute>();
 
-    public InventoryItemInstance(InventoryItem Data)
-    {
-        this.Data = Data;
-    }
+    public InventoryItemInstance(InventoryItem Data) { this.Data = Data; }
 
     public void Awake() 
     {
@@ -96,6 +102,54 @@ public class InventoryItemInstance
 
     }
 
+    public void SetAttribute(string Key, bool Value)
+    {
+        for (int i = 0; i < Attributes.Count; i++)
+        {
+            if (Attributes[i].Key.Equals(Key)) 
+            { 
+
+                ItemAttribute Attribute = new ItemAttribute(Attributes[i]);
+                Attribute.BooleanValue = Value;
+                Attributes.Remove(Attributes[i]);
+                Attributes.Add(Attribute);
+                break; 
+            }
+        }
+    }
+
+    public void SetAttribute(string Key, string Value)
+    {
+        for (int i = 0; i < Attributes.Count; i++)
+        {
+            if (Attributes[i].Key.Equals(Key)) 
+            { 
+
+                ItemAttribute Attribute = new ItemAttribute(Attributes[i]);
+                Attribute.StringValue = Value;
+                Attributes.Remove(Attributes[i]);
+                Attributes.Add(Attribute);
+                break; 
+            }
+        }
+    }
+
+    public void SetAttribute(string Key, int Value)
+    {
+        for (int i = 0; i < Attributes.Count; i++)
+        {
+            if (Attributes[i].Key.Equals(Key)) 
+            { 
+
+                ItemAttribute Attribute = new ItemAttribute(Attributes[i]);
+                Attribute.IntegerValue = Value;
+                Attributes.Remove(Attributes[i]);
+                Attributes.Add(Attribute);
+                break; 
+            }
+        }
+    }
+
 }
 
 public static class InventoryItemInstanceReadWriteFunctions
@@ -103,9 +157,6 @@ public static class InventoryItemInstanceReadWriteFunctions
     public static void WriteInventoryItemInstance(this NetworkWriter writer, InventoryItemInstance value)
     {
 
-        Debug.Log("Serializer");
-        Debug.Log(value);
-        Debug.Log(value.Data);
         writer.WriteString("Items/" + value.Data.name);
         writer.WriteArray(value.Attributes.ToArray());
     }

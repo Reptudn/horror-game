@@ -28,7 +28,7 @@ public class InventoryManager : NetworkBehaviour
     {
 
         InventoryController = GetComponent<PlayerInventoryController>();
-        itemsInInventory = items.Count;
+        itemsInInventory = items.Count - 1;
         if (items.Count > 0){ Show(items[index]); }
 
     }
