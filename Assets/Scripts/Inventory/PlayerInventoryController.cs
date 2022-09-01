@@ -6,9 +6,23 @@ using Mirror;
 public class PlayerInventoryController : NetworkBehaviour
 {
     
+    [Header("Equipped")]
     public int EquippedIndex = -1;
     public InventoryItem EquippedItem;
 
+    [Header("Settings")]
+    public int InventorySize = 5;
+    public KeyCode PickupKey = KeyCode.E;
+    [Range(1,10)]
+    public float MaxPickupDistance = 6f;
+    public string ItemTag = "Pickup";
+
+    [Header("Components")]
+    [RenameProperty("Animator")]
+    public Animator PlayerAnimator;
+    public GameObject ItemAnchor;
+
+    [Header("Inventory Content")]
     [SyncVar(hook = nameof(UpdateInventoryContents))] public List<InventoryItemInstance> Items;
     
     public void AddItem (InventoryItemInstance Item) 
