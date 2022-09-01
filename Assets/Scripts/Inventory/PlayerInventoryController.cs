@@ -133,17 +133,7 @@ public class PlayerInventoryController : NetworkBehaviour
         }
     }
 
-    public void UpdateEquippedItemIndex(int OldValue, int NewValue)
-    {
-        if (isServer)
-        {
-            EquippedIndex = NewValue;
-        }
-        if (isClient && (OldValue != NewValue))
-        {
-            _UpdateEquippedItemIndex(NewValue);
-        }
-    }
+    public void UpdateEquippedItemIndex(int OldValue, int NewValue) { _UpdateEquippedItemIndex(NewValue); }
 
     // Network Sync
 
