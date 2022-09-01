@@ -20,7 +20,8 @@ public class PlayerController : NetworkBehaviour {
 
 	private int Denominator = 5;
 
-	
+	public bool paused = false;
+
     private float xRotation;
     private float yRotation;
 
@@ -70,6 +71,10 @@ public class PlayerController : NetworkBehaviour {
 		if( !hasAuthority ){ return; }
 		
 		if (transform.position.y < -10f) { Spawn(); }
+
+		Debug.Log("Paused: " + paused);
+
+		if(paused) return;
 
 		float MoveX = Input.GetAxis ("Horizontal");
 		float MoveY = Input.GetAxis ("Vertical");
