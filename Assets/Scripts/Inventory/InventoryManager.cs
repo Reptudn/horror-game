@@ -46,7 +46,10 @@ public class InventoryManager : NetworkBehaviour
 
         if (item.GetComponent<InventoryItemInstance>() != null){
 
-            InventoryController.Items.Add(item.GetComponent<InventoryItemInstance>());
+            List<InventoryItemInstance> _Items = new List<InventoryItemInstance>(InventoryController.Items);
+            _Items.Add(item.GetComponent<InventoryItemInstance>());
+
+            InventoryController.Items = _Items;
 
         } else {
 
