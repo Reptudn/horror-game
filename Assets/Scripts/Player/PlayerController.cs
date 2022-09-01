@@ -72,8 +72,6 @@ public class PlayerController : NetworkBehaviour {
 		
 		if (transform.position.y < -10f) { Spawn(); }
 
-		Debug.Log("Paused: " + paused);
-
 		if(paused) return;
 
 		float MoveX = Input.GetAxis ("Horizontal");

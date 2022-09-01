@@ -569,13 +569,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7772216449123913342}
-  - component: {fileID: 7012866044451039589}
   - component: {fileID: 7772216449123913336}
   - component: {fileID: 7772216449123913337}
   - component: {fileID: 7772216449123913338}
   - component: {fileID: 7048146722369924962}
   - component: {fileID: 8946063107505777232}
-  - component: {fileID: 3365604811710915057}
+  - component: {fileID: -6233963877870321795}
   m_Layer: 0
   m_Name: Flashlight 1
   m_TagString: Pickup
@@ -599,20 +598,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &7012866044451039589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7772216449123913341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 002e495e32a54254b83927d04eff7158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 1fe43ce5dbb3cf040b353503b506a72b, type: 2}
-  Attributes: []
 --- !u!114 &7772216449123913336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,7 +758,7 @@ MonoBehaviour:
   interactionText: Pickup Flashlight
   objectName: Flashlight
   canBeInteractedWith: 1
---- !u!114 &3365604811710915057
+--- !u!114 &-6233963877870321795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -782,11 +767,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7772216449123913341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 002e495e32a54254b83927d04eff7158, type: 3}
+  m_Script: {fileID: 11500000, guid: 25001cc8266efcd408a872da7bd49c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 1fe43ce5dbb3cf040b353503b506a72b, type: 2}
-  Attributes: []
+  Item:
+    Data: {fileID: 11400000, guid: 1fe43ce5dbb3cf040b353503b506a72b, type: 2}
+    Attributes: []
 --- !u!1 &8820792899311811965
 GameObject:
   m_ObjectHideFlags: 0

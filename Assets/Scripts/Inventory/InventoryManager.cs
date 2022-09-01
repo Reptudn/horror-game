@@ -44,30 +44,27 @@ public class InventoryManager : NetworkBehaviour
             return;
         }
 
-        if (item.GetComponent<InventoryItemInstance>() != null){
+        if (item.GetComponent<InventoryItemRefrence>() != null){
 
             List<InventoryItemInstance> _Items = new List<InventoryItemInstance>(InventoryController.Items);
-            _Items.Add(item.GetComponent<InventoryItemInstance>());
-
+            _Items.Add(item.GetComponent<InventoryItemRefrence>().Item);
             InventoryController.ChangeInventoryContents(_Items);
 
         } else {
 
-            Debug.LogWarning("Item is missing an ItemRefrenceInstance");
+            Debug.LogWarning("Item is missing an Item Refrence");
 
         }
 
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
-        //item.transform.rotation = hand.transform.rotation;
-        //item.transform.localRotation = Quaternion.Euler(0f,0f,0f);
+        item.transform.rotation = hand.transform.rotation;
+        item.transform.localRotation = Quaternion.Euler(0f,0f,0f);
 
         items.Add(item);
         index = itemsInInventory;
         itemsInInventory++;
         Show(item);
-
-        Debug.Log("Item added to inventory: " + item.name + ", " + itemsInInventory);
     }
 
     public void RemoveItemFromInventory(GameObject item){
@@ -85,13 +82,11 @@ public class InventoryManager : NetworkBehaviour
 
                 if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
                     if(index < items.Count - 1) index++;
-                    Debug.Log(index);
                     Show(items[index]);
                 }
 
                 if(Input.GetAxis("Mouse ScrollWheel") < 0){ //scroll down
                     if(index < items.Count && index > 0) index--;
-                    Debug.Log(index);
                     Show(items[index]);
                 }
             }
@@ -112,15 +107,6 @@ public class InventoryManager : NetworkBehaviour
 
         }
         
-    }
-
-    void LogItemsInventory(){
-        Debug.Log("--------------------");
-        foreach(GameObject i in items){
-            Debug.Log(i.name);
-        }
-        Debug.Log(itemsInInventory);
-        Debug.Log("--------------------");
     }
 
     void Show(GameObject toShow){

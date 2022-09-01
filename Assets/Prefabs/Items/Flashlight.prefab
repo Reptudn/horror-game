@@ -272,7 +272,6 @@ GameObject:
   - component: {fileID: 8694054391289164615}
   - component: {fileID: 8810929272187573421}
   - component: {fileID: 2466316346392914436}
-  - component: {fileID: -3011269918018089931}
   m_Layer: 0
   m_Name: Flashlight
   m_TagString: Pickup
@@ -324,7 +323,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2c8d239bd2d9d40b21b4f21a32ae60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  light: {fileID: 42286047569996604}
+  lightSource: {fileID: 0}
+  animator: {fileID: 0}
+  onSound: {fileID: 0}
+  offSound: {fileID: 0}
 --- !u!114 &2466316346392914436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,21 +342,6 @@ MonoBehaviour:
   interactionText: Pickup Flashlight
   objectName: Flashlight
   canBeInteractedWith: 1
---- !u!114 &-3011269918018089931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2881789867668249886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 002e495e32a54254b83927d04eff7158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 1fe43ce5dbb3cf040b353503b506a72b, type: 2}
-  Owner: {fileID: 0}
-  Attributes: []
 --- !u!1 &3330322240655385188
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using System;
 using Mirror;
 
 [Serializable]
-public class InventoryItemInstance : MonoBehaviour
+public class InventoryItemInstance
 {
 
     [Serializable]
@@ -60,10 +60,14 @@ public class InventoryItemInstance : MonoBehaviour
 
     public InventoryItem Data;
 
-    [SerializeField]
     public List<ItemAttribute> Attributes = new List<ItemAttribute>();
 
-    private void Awake() 
+    public InventoryItemInstance(InventoryItem Data)
+    {
+        this.Data = Data;
+    }
+
+    public void Awake() 
     {
 
         foreach(InventoryItem.ItemAttribute Attribute in Data.Attributes)
@@ -98,14 +102,19 @@ public static class InventoryItemInstanceReadWriteFunctions
 {
     public static void WriteInventoryItemInstance(this NetworkWriter writer, InventoryItemInstance value)
     {
-        writer.WriteString(value.name);
+
+        Debug.Log("Serializer");
+        Debug.Log(value);
+        Debug.Log(value.Data);
+        writer.WriteString("Items/" + value.Data.name);
         writer.WriteArray(value.Attributes.ToArray());
     }
 
     public static InventoryItemInstance ReadInventoryItemInstance(this NetworkReader reader)
     {
-        InventoryItemInstance ItemInstance = new InventoryItemInstance();
-        ItemInstance.Data = Resources.Load<InventoryItem>(reader.ReadString());
+
+        string SOPath = reader.ReadString();
+        InventoryItemInstance ItemInstance = new InventoryItemInstance(Resources.Load<InventoryItem>(SOPath));
 
         InventoryItemInstance.ItemAttribute[] ItemAttributes = reader.ReadArray<InventoryItemInstance.ItemAttribute>();
         ItemInstance.Attributes = new List<InventoryItemInstance.ItemAttribute>();
@@ -118,6 +127,34 @@ public static class InventoryItemInstanceReadWriteFunctions
         }
 
         return ItemInstance;
+    }
+}
+
+public static class InventoryItemInstanceAttributeReadWriteFunctions
+{
+    public static void WriteInventoryItemInstanceAttribute(this NetworkWriter writer, InventoryItemInstance.ItemAttribute value)
+    {
+
+        writer.WriteString(value.Key);
+        writer.WriteInt((int) value.Type);
+
+        writer.WriteBool(value.BooleanValue);
+        writer.WriteString(value.StringValue);
+        writer.WriteInt(value.IntegerValue);
+    }
+
+    public static InventoryItemInstance.ItemAttribute ReadInventoryItemInstanceAttribute(this NetworkReader reader)
+    {
+        InventoryItemInstance.ItemAttribute ItemAttribute = new InventoryItemInstance.ItemAttribute();
+
+        ItemAttribute.Key = reader.ReadString();
+        ItemAttribute.Type = (InventoryItem.AttributeType) reader.ReadInt();
+
+        ItemAttribute.BooleanValue = reader.ReadBool();
+        ItemAttribute.StringValue = reader.ReadString();
+        ItemAttribute.IntegerValue = reader.ReadInt();
+
+        return ItemAttribute;
     }
 }
 
