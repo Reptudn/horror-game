@@ -6,12 +6,17 @@ using Mirror;
 public class Flashlight : MonoBehaviour
 {
 
-    public GameObject light;
+    public GameObject lightSource;
+    public Animator animator;
+    public AudioSource onSound;
+    public AudioSource offSound;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        light.SetActive(false);
+        lightSource.SetActive(false);
+        animator.SetBool("Light On", false);
     }
 
     // Update is called once per frame
@@ -22,7 +27,11 @@ public class Flashlight : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0)){ 
 
-                light.SetActive(!light.activeSelf);
+                lightSource.SetActive(!lightSource.activeSelf);
+                animator.SetBool("Light On", !animator.GetBool("Light On"));
+
+                if(lightSource.activeSelf) onSound.Play();
+                else offSound.Play();
 
             }
 
