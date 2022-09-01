@@ -49,7 +49,7 @@ public class InventoryManager : NetworkBehaviour
             List<InventoryItemInstance> _Items = new List<InventoryItemInstance>(InventoryController.Items);
             _Items.Add(item.GetComponent<InventoryItemInstance>());
 
-            InventoryController.Items = _Items;
+            InventoryController.ChangeInventoryContents(_Items);
 
         } else {
 
