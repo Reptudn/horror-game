@@ -1377,6 +1377,7 @@ MonoBehaviour:
   WaterHeight: -10
   sprintMultiplier: 1.4
   cam: {fileID: 2748922343351865626}
+  paused: 0
   animator: {fileID: 1512772244242362001}
 --- !u!143 &5263874437586552047
 CharacterController:
@@ -2093,6 +2094,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6620171219837146360}
     m_Modifications:
+    - target: {fileID: 1879481702679532971, guid: 268240ca9e5ce63419b8da55d2999697, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 7107545623046478657}
     - target: {fileID: 3992571443695602859, guid: 268240ca9e5ce63419b8da55d2999697, type: 3}
       propertyPath: m_Name
       value: HUD
