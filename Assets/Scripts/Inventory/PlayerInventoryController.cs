@@ -147,7 +147,11 @@ public class PlayerInventoryController : NetworkBehaviour
 
     // Network Sync
 
-    public void TriggerNetworkSync() { ChangeInventoryContents(new List<InventoryItemInstance>(Items) ); this.EquippedItem = this.Items[EquippedIndex]; }
+    public void TriggerNetworkSync() 
+    { 
+        ChangeInventoryContents(new List<InventoryItemInstance>(Items)); 
+        if (EquippedIndex != -1){ this.EquippedItem = this.Items[EquippedIndex]; } 
+        else { this.EquippedItem = null; }}
 
     // Private Secondary Update Handlers
 
