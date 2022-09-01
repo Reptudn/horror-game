@@ -44,6 +44,16 @@ public class InventoryManager : NetworkBehaviour
             return;
         }
 
+        if (item.GetComponent<InventoryItemInstance>() != null){
+
+            InventoryController.Items.Add(item.GetComponent<InventoryItemInstance>());
+
+        } else {
+
+            Debug.LogWarning("Item is missing an ItemRefrenceInstance");
+
+        }
+
         item.transform.position = hand.transform.position;
         item.transform.SetParent(hand.transform);
         //item.transform.rotation = hand.transform.rotation;

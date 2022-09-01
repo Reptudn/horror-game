@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Mirror;
 
+[Serializable]
 public class InventoryItemInstance : MonoBehaviour
 {
 
@@ -53,15 +55,17 @@ public class InventoryItemInstance : MonoBehaviour
 
     }
 
+    [System.NonSerialized]
+    public PlayerObjectController Owner;
+
     public InventoryItem Data;
 
-    public PlayerObjectController Owner;
-    
+    [SerializeField]
     public List<ItemAttribute> Attributes = new List<ItemAttribute>();
 
-    private void Start() 
+    private void Awake() 
     {
-        
+
         foreach(InventoryItem.ItemAttribute Attribute in Data.Attributes)
         {
 
@@ -89,3 +93,32 @@ public class InventoryItemInstance : MonoBehaviour
     }
 
 }
+
+public static class InventoryItemInstanceReadWriteFunctions
+{
+    public static void WriteInventoryItemInstance(this NetworkWriter writer, InventoryItemInstance value)
+    {
+        writer.WriteString(value.name);
+        writer.WriteArray(value.Attributes.ToArray());
+    }
+
+    public static InventoryItemInstance ReadInventoryItemInstance(this NetworkReader reader)
+    {
+        InventoryItemInstance ItemInstance = new InventoryItemInstance();
+        ItemInstance.Data = Resources.Load<InventoryItem>(reader.ReadString());
+
+        InventoryItemInstance.ItemAttribute[] ItemAttributes = reader.ReadArray<InventoryItemInstance.ItemAttribute>();
+        ItemInstance.Attributes = new List<InventoryItemInstance.ItemAttribute>();
+
+        foreach (InventoryItemInstance.ItemAttribute Attribute in ItemAttributes)
+        {
+
+            ItemInstance.Attributes.Add(Attribute);
+
+        }
+
+        return ItemInstance;
+    }
+}
+
+

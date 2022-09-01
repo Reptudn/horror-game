@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditor;
+using Mirror;
 
 [System.Serializable]
 [CreateAssetMenu(menuName="Inventory/Item")]
 public class InventoryItem : ScriptableObject
 {
 
+    [Serializable]
     public enum AttributeType {
         String,
         Integer,
