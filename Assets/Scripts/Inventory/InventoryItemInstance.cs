@@ -54,6 +54,8 @@ public class InventoryItemInstance : MonoBehaviour
     }
 
     public InventoryItem Data;
+
+    public PlayerObjectController Owner;
     
     public List<ItemAttribute> Attributes = new List<ItemAttribute>();
 
