@@ -18,6 +18,6 @@ MonoBehaviour:
   Attributes:
   - Key: Enabled
     Type: 2
-    DefaultBoolean: 1
+    DefaultBoolean: 0
     DefaultString: 
     DefaultInteger: 0
