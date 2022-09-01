@@ -8,6 +8,8 @@ public class PlayerController : NetworkBehaviour {
 
 	[Header("Movement and Mouse Attributes")]
 	public float speed = 10.0f;
+
+	[Range(50, 300)]
 	public float sensitivity = 60.0f;
 	public float WaterHeight = 15.5f;
 	public float sprintMultiplier = 1.4f;

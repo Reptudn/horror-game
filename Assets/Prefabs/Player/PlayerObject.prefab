@@ -1373,7 +1373,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   speed: 15
-  sensitivity: 100
+  sensitivity: 150
   WaterHeight: -10
   sprintMultiplier: 1.4
   cam: {fileID: 2748922343351865626}

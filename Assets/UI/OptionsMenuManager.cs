@@ -27,13 +27,15 @@ public class OptionsMenuManager : MonoBehaviour
         slider.value = playerController.sensitivity;
         senseValue.SetText(playerController.sensitivity.ToString());
 
+        Debug.Log(playerController.sensitivity);
+
         float value = 0;
         if(audioMixer.GetFloat("GameAudio", out float _value)) value = _value;
         volumeValue.SetText(value.ToString());
     }
 
     void Update(){
-        
+        Debug.Log(playerController.sensitivity);
     }
 
     public GameObject[] mainMenuComp;
