@@ -973,8 +973,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuContainer: {fileID: 8314916069767765501}
+  nonOptionsMenu:
+  - {fileID: 0}
+  optionsMenu: {fileID: 0}
   crosshairContainer: {fileID: 8938591121017574617}
   interactionContainer: {fileID: 829492609951499959}
+  playerController: {fileID: 0}
   pauseMenuKey: 27
 --- !u!1 &5143969552067659214
 GameObject:
