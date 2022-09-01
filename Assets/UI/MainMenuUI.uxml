@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Background" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement name="MenuContainer" style="height: 275px; width: 340px; border-left-color: rgba(255, 255, 255, 255); border-right-color: rgba(255, 255, 255, 255); border-top-color: rgba(255, 255, 255, 255); border-bottom-color: rgba(255, 255, 255, 255); background-color: rgba(255, 255, 255, 255); border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; align-items: center; justify-content: center;">
+            <ui:Label text="HORROR GAME" display-tooltip-when-elided="true" name="Title" style="height: 16px; width: 96px; justify-content: center; align-items: center; padding-bottom: 10px; margin-bottom: 10px; cursor: url(&apos;project://database/Assets/Icons/icon_sprite.png?fileID=2800000&amp;guid=7bbcaf4caa527da4ba62af89cd3cc368&amp;type=3#icon_sprite&apos;);" />
+            <ui:Button text="HOST GAME" display-tooltip-when-elided="true" tooltip="Host online game" name="HostGameButton" style="height: 47px; width: 211px;" />
+            <ui:Button text="JOIN GAME" display-tooltip-when-elided="true" name="JoinGameButton" style="height: 38px; width: 212px;" />
+            <ui:Button text="LEAVE GAME" display-tooltip-when-elided="true" name="QuitGameButton" style="height: 39px; width: 210px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
