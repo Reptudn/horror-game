@@ -71,6 +71,20 @@ public class SteamLobby : MonoBehaviour
 
     }
 
+    public void HostPrivateLobby()
+    {
+
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, PlayerPerLobby);
+
+    }
+
+    public void HostFriendsOnlyLobby()
+    {
+
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, PlayerPerLobby);
+
+    }
+
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if (callback.m_eResult != EResult.k_EResultOK) { return; }
