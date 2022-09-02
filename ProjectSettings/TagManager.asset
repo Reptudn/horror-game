@@ -9,6 +9,7 @@ TagManager:
   - Interactable
   - ItemSpawnPoint
   - Collectable
+  - EquippedItem
   layers:
   - Default
   - TransparentFX
