@@ -135,6 +135,8 @@ public class PlayerInventoryController : NetworkBehaviour
 
     void _UpdateInventoryContents(List<InventoryItemInstance> NewValue) { Items = NewValue; }
 
+    void _UpdateEquippedItemIndex(int NewValue) { EquippedIndex = NewValue; UpdateEquippedItem(); }
+    
     public void ChangeInventoryContents(List<InventoryItemInstance> NewValue) { Cmd_UpdateInventoryContents(NewValue); }
 
 }
