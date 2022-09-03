@@ -1,5 +1,39 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-3604732956014378892
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 51aef92343177f04eb25ed30f6dcc90c
+  m_EffectName: Attenuation
+  m_MixLevel: dc248a2e7078c9044afc82eb54ce35f3
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &-2427906469733164794
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 9eb885dd420505c4f8b01337e9e89887
+  m_EffectName: Normalize
+  m_MixLevel: 5123d099e5b27534d9ac134a8e56fdd3
+  m_Parameters:
+  - m_ParameterName: Fade in time
+    m_GUID: e188b7ac24fb32f4cbc8191cf8f0e1b0
+  - m_ParameterName: Lowest volume
+    m_GUID: 59ff3406e719eec42a4ab7b72006047b
+  - m_ParameterName: Maximum amp
+    m_GUID: f57d5bcd15369a945a09ca7660de7caf
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -21,6 +55,7 @@ AudioMixerController:
   m_AudioMixerGroupViews:
   - guids:
     - 9db04c7220a3a7b4d9b0820971cd1852
+    - 770fe41c5dbab8748922ba4aac698071
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -33,7 +68,8 @@ AudioMixerGroupController:
   m_Name: Master
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 9db04c7220a3a7b4d9b0820971cd1852
-  m_Children: []
+  m_Children:
+  - {fileID: 6473766876099702591}
   m_Volume: dbd813c9f8a5edc4abe1ea5ff74bb5bc
   m_Pitch: 01123306b445c0b4aaa47178f430736d
   m_Send: 00000000000000000000000000000000
@@ -67,5 +103,25 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 6a60b0d4e9ea36a49aadd1264abe3bef
   m_FloatValues:
-    dbd813c9f8a5edc4abe1ea5ff74bb5bc: -80
+    dbd813c9f8a5edc4abe1ea5ff74bb5bc: 0.025578512
   m_TransitionOverrides: {}
+--- !u!243 &6473766876099702591
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerVoices
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 770fe41c5dbab8748922ba4aac698071
+  m_Children: []
+  m_Volume: 60bf6dac12c74ba41a0760afbd1cf472
+  m_Pitch: 9023d2e3817160a47af1202664afb235
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -3604732956014378892}
+  - {fileID: -2427906469733164794}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
