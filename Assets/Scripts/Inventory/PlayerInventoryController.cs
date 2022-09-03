@@ -8,7 +8,7 @@ public class PlayerInventoryController : NetworkBehaviour
     
     [Header("Equipped")]
     [ReadOnlyProperty()]
-    public int EquippedIndex = -1;
+    [SyncVar(hook = nameof(UpdateEquippedItemIndex))] public int EquippedIndex = -1;
     public InventoryItemInstance EquippedItem;
 
     [Header("Settings")]
@@ -49,14 +49,14 @@ public class PlayerInventoryController : NetworkBehaviour
         {
             if (Input.GetAxis("Mouse ScrollWheel") > 0)
             {
-                if (EquippedIndex < Items.Count - 1) { EquippedIndex++; }
-                else if (EquippedIndex == Items.Count - 1) { EquippedIndex = -1; }
+                if (EquippedIndex < Items.Count - 1) { SetEquippedIndex(EquippedIndex += 1); }
+                else if (EquippedIndex == Items.Count - 1) { SetEquippedIndex(-1);  }
                 UpdateEquippedItem();
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0)
             {
-                if (EquippedIndex > -1) { EquippedIndex--; }
-                else if (EquippedIndex == -1) { EquippedIndex = Items.Count - 1; }
+                if (EquippedIndex > -1) { SetEquippedIndex(EquippedIndex -= 1); }
+                else if (EquippedIndex == -1) { SetEquippedIndex(Items.Count - 1); }
                 UpdateEquippedItem();
             }
 
@@ -84,6 +84,9 @@ public class PlayerInventoryController : NetworkBehaviour
 
     private void UpdateEquippedItem()
     {
+
+        SetEquippedIndex(EquippedIndex);
+
         foreach (Transform child in ItemAnchor.transform) { GameObject.Destroy(child.gameObject); }
         if (EquippedIndex >= 0)
         {
@@ -114,10 +117,12 @@ public class PlayerInventoryController : NetworkBehaviour
     // Networking
 
     [Command]
-    private void Cmd_UpdateInventoryContents(List<InventoryItemInstance> NewValue)
-    {
-        UpdateInventoryContents(Items, NewValue);
-    }
+    private void Cmd_UpdateInventoryContents(List<InventoryItemInstance> NewValue) { UpdateInventoryContents(Items, NewValue); }
+
+    [Command]
+    private void Cmd_SetEquippedIndex(int NewValue) { UpdateEquippedItemIndex(EquippedIndex, NewValue); }
+
+    // Update Handlers
 
     public void UpdateInventoryContents(List<InventoryItemInstance> OldValue, List<InventoryItemInstance> NewValue)
     {
@@ -131,12 +136,26 @@ public class PlayerInventoryController : NetworkBehaviour
         }
     }
 
-    public void TriggerNetworkSync() { ChangeInventoryContents(new List<InventoryItemInstance>(Items) ); this.EquippedItem = this.Items[EquippedIndex]; }
+    public void UpdateEquippedItemIndex(int OldValue, int NewValue) { _UpdateEquippedItemIndex(NewValue); }
+
+    // Network Sync
+
+    public void TriggerNetworkSync() 
+    { 
+        ChangeInventoryContents(new List<InventoryItemInstance>(Items)); 
+        if (EquippedIndex != -1){ this.EquippedItem = this.Items[EquippedIndex]; } 
+        else { this.EquippedItem = null; }
+        SetEquippedIndex(EquippedIndex);
+    }
+
+    // Private Secondary Update Handlers
 
     void _UpdateInventoryContents(List<InventoryItemInstance> NewValue) { Items = NewValue; }
 
     void _UpdateEquippedItemIndex(int NewValue) { EquippedIndex = NewValue; UpdateEquippedItem(); }
     
     public void ChangeInventoryContents(List<InventoryItemInstance> NewValue) { Cmd_UpdateInventoryContents(NewValue); }
+
+    public void SetEquippedIndex(int Index) { Cmd_SetEquippedIndex(Index); }
 
 }

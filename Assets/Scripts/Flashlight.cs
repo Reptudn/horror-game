@@ -33,7 +33,8 @@ public class Flashlight : MonoBehaviour
                 lightSource.SetActive(!lightSource.activeSelf);
                 animator.SetBool("Light On", !animator.GetBool("Light On"));
             
-                InventoryController.EquippedItem.SetAttribute("Enabled", lightSource.activeSelf);
+                InventoryItemInstance Item = InventoryController.Items[InventoryController.EquippedIndex];
+                Item.SetAttribute("Enabled", lightSource.activeSelf);
                 InventoryController.TriggerNetworkSync();
 
                 if(lightSource.activeSelf) onSound.Play();
