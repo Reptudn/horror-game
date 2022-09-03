@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(AIHandler))]
 public class AI : MonoBehaviour
 {
 
     public bool canSeeGoal = false;
-    NavMeshAgent agent;
+    public float maxTrackDistance = 10f;
     public GameObject playerToFollow;
     public GameObject[] wanderPoints;
 
     private Vector3 lastSeenPosition;
     private bool searchSucceeded = true;
+    NavMeshAgent agent;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.autoRepath = true;
-        if(playerToFollow == null) playerToFollow = GameObject.Find("Goal");
+        if(playerToFollow == null) playerToFollow = GameObject.Find("LocalGamePlayer");
     }
 
     void Update()
@@ -28,7 +30,7 @@ public class AI : MonoBehaviour
 
             Debug.DrawLine(transform.position, new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z), Color.white, Time.deltaTime);
 
-            if(hit.transform.gameObject == playerToFollow){
+            if(hit.transform.gameObject == playerToFollow && hit.distance <= maxTrackDistance){
 
                 canSeeGoal = true;
                 lastSeenPosition = hit.transform.position;
@@ -71,16 +73,19 @@ public class AI : MonoBehaviour
 
     void Hunt(GameObject track){
         Debug.Log("Hunting: " + track.name);
+        //agent.speed = 3f;
     }
 
     void Search(Vector3 lastSeenPosition){
         if(lastSeenPosition == null) return;
         Debug.Log("Searching at last seen position");
         agent.destination = lastSeenPosition;
+        //agent.speed = 1.2f;
     }
 
     void SetGoal(Transform goal){
         Debug.Log("Tracking");
         agent.destination = goal.position;
+        //agent.speed = 1f;
     }
 }

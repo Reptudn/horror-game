@@ -1991,10 +1991,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaba73e1119317e42a11c7bd1c14188f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkDirtSound: {fileID: 0}
+  walkDirtSound: {fileID: 588891036680513486}
   dirtTag: Dirt
-  leftFoot: {fileID: 0}
-  rightFoot: {fileID: 0}
+  leftFoot: {fileID: 1736315661578819862}
+  rightFoot: {fileID: 365824042968230503}
   untilNextStepAudioPauseTime: 0.5
 --- !u!1 &6904817432851726522
 GameObject:
