@@ -1,175 +1,86 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
+using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
 
-    /*
-    Ray Colors: 
-        Closest Player = Yellow;
-        Environment = Blue;
-    */
+    public bool canSeeGoal = false;
+    NavMeshAgent agent;
+    public GameObject playerToFollow;
+    public GameObject[] wanderPoints;
 
-    [Header("AI Settings")]
-    public int rayCount = 360;
-    public float rayDistance = 10f;
-    public float minDistanceToObject = 2f;
-    public float walkSpeed = 5f;
-    public float chaseSpeed = 8f;
+    private Vector3 lastSeenPosition;
+    private bool searchSucceeded = true;
 
-
-    [Header("Components")]
-    public CharacterController ai_controller;
-    public Animator ai_animator;
-    public Transform rayOrigin;
-
-
-
-    private RaycastHit hit;
-
-
-    [Header("Information")]
-    public string state = "Idle";
-
-
-    // Start is called before the first frame update
     void Start()
     {
-
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoRepath = true;
+        if(playerToFollow == null) playerToFollow = GameObject.Find("Goal");
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        Move();
-    }
-
-    private void MoveTowardsClosestPlayer(){
-
-        GameObject track = GetClosestPlayer();
-
-        if(track == null) { Debug.Log("No Closest Player found!"); return; }
-
-        Vector3 moveTo = Vector3.MoveTowards(transform.position, track.transform.position, walkSpeed * 10);
-        Vector3 walk = new Vector3(moveTo.x, 0f, moveTo.z);
-        ai_controller.Move(moveTo);
-
-        Debug.Log("Targetting: " + track.name);
-
-    }
-
-    private void Move(){
-
-        Vector3 movement = new Vector3 (1f, 0f, 1f);
-
-		movement = transform.rotation * movement;
-
-        if(CheckFront()){
-            
-            ai_controller.Move(transform.forward / 10f);
-            return;
-        }
         
-        //Vector3 newDir = new Vector3(transform.forward.x * Random.Range(-1f, 1f), transform.forward.y, transform.forward.z);
+        if(Physics.Linecast(transform.position, playerToFollow.transform.position, out RaycastHit hit)){
 
-        int rand = (int)Random.Range(0f,10f);
+            Debug.DrawLine(transform.position, new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z), Color.white, Time.deltaTime);
 
-        if(rand < 5) ai_controller.Move(transform.right);
-        else ai_controller.Move(-transform.right);
-        
-    }
+            if(hit.transform.gameObject == playerToFollow){
 
-    private bool CheckFront(){
-
-        Ray ray = new Ray(rayOrigin.position, transform.forward);
-
-        if(Physics.Raycast(ray, out RaycastHit hit)){
-
-            Debug.DrawLine(transform.position, transform.forward, Color.blue, 3f);
-
-            Debug.Log(hit.distance);
-
-            if(hit.distance > minDistanceToObject) {
-                Debug.Log("Can walk");
-                return true; 
-            }
-
-        }
-
-        Debug.Log("Cannot walk");
-        return false;
-    }
-
-
-    private void CheckRoundings(){
-
-        /*
-
-        float distToNextRay = 360 / rayCount;
-        float dist = 0f;
-
-        for(int i = 0; i < rayCount; i++){
-
-            SendRaycast();
-            dist += distToNextRay;
-            //Debug.Log(dist);
-
-        }
-
-        Ray ray = new Ray(rayOrigin.position, dir);
-        Debug.DrawLine(transform.position, dir, Color.blue, Time.deltaTime * 1.2f);
-
-        if(Physics.SphereCast(ray, rayDistance, out RaycastHit hitInfo)){
-
-        }
-        */
-
-    }
-
-    void TrackPlayer(GameObject player){
-
-        Debug.Log("Tracking Player");
-        state = "Tracking";
-
-    }
-
-    private GameObject GetClosestPlayer(){
-        
-        if(SceneManager.GetActiveScene().name == "MainMenu") return null;
-
-        GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-
-        GameObject closestPlayer = null;
-        float closestDistance = Vector3.Distance(transform.position, new Vector3(100000000f, 100000000f, 100000000f));
-
-        foreach(var o in rootObjects){
-            
-            var controller = o.GetComponent<CharacterController>();
-            if(controller != null && controller.gameObject.name != transform.gameObject.name){
+                canSeeGoal = true;
+                lastSeenPosition = hit.transform.position;
+                SetGoal(hit.transform);
                 
-                Debug.Log("pog");
+            } else {
 
-                float temp_distance = Vector3.Distance(transform.position, o.transform.position);
-                if(temp_distance < closestDistance){
-                    
-                    closestDistance = temp_distance;
-                    closestPlayer = o;
-
-                }
+                canSeeGoal = false;
+                Search(lastSeenPosition);
 
             }
-
         }
-
-        Debug.Log("Closest Player is " + closestPlayer);
-        Debug.Log("Distance: " + closestDistance);
-        //Debug.DrawLine(this.gameObject.transform.position, closestPlayer.transform.position, Color.yellow, 10f);
-
-        return closestPlayer;
 
     }
 
+    void Wander(){
+        Debug.Log("Wandering around");
+        float dist=agent.remainingDistance;
+        if (agent.pathStatus == NavMeshPathStatus.PathComplete){
+            agent.destination = wanderPoints[Random.Range(0, wanderPoints.Length - 1)].transform.position;
+        }
+
+    }
+
+    private Vector3 GetNearestWanderPoint(){
+
+        Vector3 closestPos = wanderPoints[0].transform.position;
+        float clostestDistance = 100000000000f;
+
+        foreach(var obj in wanderPoints){
+            float dist = Vector3.Distance(transform.position, obj.transform.position);
+            if(dist < clostestDistance && obj.transform.position != transform.position){
+                clostestDistance = dist;
+                closestPos = obj.transform.position;
+            }
+        }
+
+        return closestPos;
+    }
+
+    void Hunt(GameObject track){
+        Debug.Log("Hunting: " + track.name);
+    }
+
+    void Search(Vector3 lastSeenPosition){
+        if(lastSeenPosition == null) return;
+        Debug.Log("Searching at last seen position");
+        agent.destination = lastSeenPosition;
+    }
+
+    void SetGoal(Transform goal){
+        Debug.Log("Tracking");
+        agent.destination = goal.position;
+    }
 }
