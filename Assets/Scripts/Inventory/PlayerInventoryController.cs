@@ -51,13 +51,11 @@ public class PlayerInventoryController : NetworkBehaviour
             {
                 if (EquippedIndex < Items.Count - 1) { SetEquippedIndex(EquippedIndex += 1); }
                 else if (EquippedIndex == Items.Count - 1) { SetEquippedIndex(-1);  }
-                UpdateEquippedItem();
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0)
             {
                 if (EquippedIndex > -1) { SetEquippedIndex(EquippedIndex -= 1); }
                 else if (EquippedIndex == -1) { SetEquippedIndex(Items.Count - 1); }
-                UpdateEquippedItem();
             }
 
             if (Input.GetKeyDown(PickupKey)){
@@ -85,7 +83,7 @@ public class PlayerInventoryController : NetworkBehaviour
     private void UpdateEquippedItem()
     {
 
-        SetEquippedIndex(EquippedIndex);
+        Debug.Log("Update Equipped Item");
 
         foreach (Transform child in ItemAnchor.transform) { GameObject.Destroy(child.gameObject); }
         if (EquippedIndex >= 0)
@@ -107,7 +105,6 @@ public class PlayerInventoryController : NetworkBehaviour
 
     private void ToggleHoldingAnimation(bool State)
     {
-        Debug.Log("Holding Item: " + State + ", " + (State ? 1f : 0f).ToString());
         PlayerAnimator.SetBool("holdingItem", State);
         PlayerAnimator.SetLayerWeight(4, State ? 1f : 0f);
     }
@@ -152,8 +149,8 @@ public class PlayerInventoryController : NetworkBehaviour
 
     void _UpdateInventoryContents(List<InventoryItemInstance> NewValue) { Items = NewValue; }
 
-    void _UpdateEquippedItemIndex(int NewValue) { EquippedIndex = NewValue; }
-
+    void _UpdateEquippedItemIndex(int NewValue) { EquippedIndex = NewValue; UpdateEquippedItem(); }
+    
     public void ChangeInventoryContents(List<InventoryItemInstance> NewValue) { Cmd_UpdateInventoryContents(NewValue); }
 
     public void SetEquippedIndex(int Index) { Cmd_SetEquippedIndex(Index); }

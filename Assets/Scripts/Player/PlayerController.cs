@@ -32,6 +32,8 @@ public class PlayerController : NetworkBehaviour {
 
 	void Start(){
 		character = GetComponent<CharacterController> ();
+
+		if (GetComponent<Rigidbody>() != null){ Destroy(GetComponent<Rigidbody>()); } // Remove randomly appearing rigidbody
 	}
 
 	void SetCharacterPosition(Vector3 Position)
