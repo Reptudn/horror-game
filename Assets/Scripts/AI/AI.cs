@@ -78,7 +78,7 @@ public class AI : MonoBehaviour
 
     void Search(Vector3 lastSeenPosition){
         if(lastSeenPosition == null) return;
-        Debug.Log("Searching at last seen position");
+        //Debug.Log("Searching at last seen position");
         agent.destination = lastSeenPosition;
         //agent.speed = 1.2f;
     }
