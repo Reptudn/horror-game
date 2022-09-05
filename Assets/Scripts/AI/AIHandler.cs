@@ -81,7 +81,7 @@ public class AIHandler : MonoBehaviour
 
         Debug.Log("Closest Player is " + closestPlayer);
         Debug.Log("Distance: " + closestDistance);
-        //Debug.DrawLine(this.gameObject.transform.position, closestPlayer.transform.position, Color.yellow, 10f);
+        Debug.DrawLine(this.gameObject.transform.position, closestPlayer.transform.position, Color.yellow, 10f);
 
         return closestPlayer;
 
