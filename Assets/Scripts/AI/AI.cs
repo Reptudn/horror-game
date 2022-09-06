@@ -12,6 +12,8 @@ public class AI : MonoBehaviour
     public GameObject playerToFollow;
     public GameObject[] wanderPoints;
 
+    [SerializeField] private GameObject selectedWanderPoint;
+
     private Vector3 lastSeenPosition;
     private bool searchSucceeded = true;
     NavMeshAgent agent;
@@ -25,6 +27,7 @@ public class AI : MonoBehaviour
 
     void Update()
     {
+
         
         if(Physics.Linecast(transform.position, playerToFollow.transform.position, out RaycastHit hit)){
 
@@ -36,13 +39,17 @@ public class AI : MonoBehaviour
                 lastSeenPosition = hit.transform.position;
                 SetGoal(hit.transform);
                 
+            } else if(!canSeeGoal && agent.pathStatus == NavMeshPathStatus.PathComplete){
+
+                Wander();
+
             } else {
 
                 canSeeGoal = false;
                 Search(lastSeenPosition);
 
             }
-        }
+        } 
 
     }
 
@@ -50,7 +57,11 @@ public class AI : MonoBehaviour
         Debug.Log("Wandering around");
         float dist=agent.remainingDistance;
         if (agent.pathStatus == NavMeshPathStatus.PathComplete){
-            agent.destination = wanderPoints[Random.Range(0, wanderPoints.Length - 1)].transform.position;
+            GameObject wanderPoint = wanderPoints[Random.Range(0, wanderPoints.Length - 1)];
+            selectedWanderPoint = wanderPoint;
+            agent.destination = wanderPoint.transform.position;
+        } else {
+            agent.destination = selectedWanderPoint.transform.position;
         }
 
     }
@@ -65,6 +76,7 @@ public class AI : MonoBehaviour
             if(dist < clostestDistance && obj.transform.position != transform.position){
                 clostestDistance = dist;
                 closestPos = obj.transform.position;
+                selectedWanderPoint = obj;
             }
         }
 
@@ -80,7 +92,7 @@ public class AI : MonoBehaviour
         if(lastSeenPosition == null) return;
         //Debug.Log("Searching at last seen position");
         agent.destination = lastSeenPosition;
-        //agent.speed = 1.2f;
+        Wander();
     }
 
     void SetGoal(Transform goal){
