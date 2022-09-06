@@ -90,6 +90,7 @@ public class PlayerInventoryController : NetworkBehaviour
         {
             EquippedItem = Items[EquippedIndex];
             GameObject Item = Instantiate(EquippedItem.Data.Prefab);
+        
             Item.transform.SetParent(ItemAnchor.transform);
             Item.transform.localPosition = new Vector3(0f, 0f, 0f);
             Item.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
