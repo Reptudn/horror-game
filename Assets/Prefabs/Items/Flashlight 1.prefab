@@ -306,7 +306,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0
+  MinDistance: 3
   MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
@@ -342,7 +342,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 7048146722369924962}
   - component: {fileID: 8946063107505777232}
   - component: {fileID: -6233963877870321795}
+  - component: {fileID: 6384217456274509212}
   m_Layer: 0
   m_Name: Flashlight 1
   m_TagString: Pickup
@@ -610,10 +611,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2c8d239bd2d9d40b21b4f21a32ae60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   lightSource: {fileID: 7772216448480022195}
   animator: {fileID: 7772216449123913337}
   onSound: {fileID: 7772216449123913338}
   offSound: {fileID: 3712329919105676421}
+  LocalPlayerObject: {fileID: 0}
+  InventoryController: {fileID: 0}
+  PlayerObject: {fileID: 0}
+  State: 0
 --- !u!95 &7772216449123913337
 Animator:
   serializedVersion: 4
@@ -654,7 +661,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0
+  MinDistance: 3
   MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
@@ -690,7 +697,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -773,6 +780,23 @@ MonoBehaviour:
   Item:
     Data: {fileID: 11400000, guid: 1fe43ce5dbb3cf040b353503b506a72b, type: 2}
     Attributes: []
+--- !u!114 &6384217456274509212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7772216449123913341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: c331ce248b54e874dbf12824f4959ca6
+  hasSpawned: 0
 --- !u!1 &8820792899311811965
 GameObject:
   m_ObjectHideFlags: 0
