@@ -61,7 +61,7 @@ public class AI : MonoBehaviour
         float dist=agent.remainingDistance;
         if (hasReachedWanderPoint()){
             agent.destination = RandomWanderPoint().transform.position;
-        } else agent.destination = selectedWanderPoint.transform.position;
+        } else if (selectedWanderPoint != null) { agent.destination = selectedWanderPoint.transform.position; }
         
     }
 
@@ -107,7 +107,7 @@ public class AI : MonoBehaviour
     }
 
     bool hasReachedWanderPoint(){
-        if(selectedWanderPoint.transform.position == transform.position || agent.remainingDistance == 0){
+        if(selectedWanderPoint != null && (selectedWanderPoint.transform.position == transform.position || agent.remainingDistance == 0)){
             return true;
         } 
         return false;
