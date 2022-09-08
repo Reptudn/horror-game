@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class Flashlight : MonoBehaviour
+public class Flashlight : NetworkBehaviour
 {
 
     public GameObject lightSource;
@@ -24,6 +24,8 @@ public class Flashlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(!hasAuthority) return;
 
         if(this.gameObject.activeSelf && transform.parent != null && transform.parent.name == "ItemAnchor"){
 
