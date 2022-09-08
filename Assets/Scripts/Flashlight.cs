@@ -14,16 +14,19 @@ public class Flashlight : NetworkBehaviour
     public PlayerInventoryController InventoryController;
     public GameObject PlayerObject = null;
     
+    public bool State = false;
     
     void Start()
     {
         LocalPlayerObject = GameObject.Find("LocalGamePlayer").GetComponent<PlayerObjectController>();
-        InventoryController =  LocalPlayerObject.GetComponent<PlayerInventoryController>();
+        PlayerObject = FindOwner();
+        if (PlayerObject != null)
+        {
+            InventoryController =  PlayerObject.GetComponent<PlayerInventoryController>();
+        }
+        
         lightSource.SetActive(false);
         animator.SetBool("Light On", false);
-
-        PlayerObject = FindOwner();
-
     }
 
     void Toggle()
@@ -34,12 +37,11 @@ public class Flashlight : NetworkBehaviour
     void VisualUpdate(bool State)
     {
 
-        Debug.Log("Visual Update");
-
         lightSource.SetActive(State);
         animator.SetBool("Light On", State);
         if (State) onSound.Play();
         else offSound.Play();
+
     }
 
     GameObject FindOwner()
@@ -71,8 +73,7 @@ public class Flashlight : NetworkBehaviour
 
     void Update()
     {
-
-        //Debug.Log("Authority: " + IsLocalPlayer());
+        
         if (IsLocalPlayer())
         {
 
@@ -91,6 +92,17 @@ public class Flashlight : NetworkBehaviour
 
             }
 
+        } 
+        else if (InventoryController != null)
+        {
+            InventoryItemInstance Item = InventoryController.Items[InventoryController.EquippedIndex];
+            bool NewState = Item.GetAttributeBool("Enabled");
+
+            if (NewState != State)
+            {
+                VisualUpdate(NewState);
+                State = NewState;
+            }
         }
 
     }

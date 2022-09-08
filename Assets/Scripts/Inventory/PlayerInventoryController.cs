@@ -9,6 +9,7 @@ public class PlayerInventoryController : NetworkBehaviour
     [Header("Equipped")]
     [ReadOnlyProperty()]
     [SyncVar(hook = nameof(UpdateEquippedItemIndex))] public int EquippedIndex = -1;
+    private int _EquippedIndex = -1;
     public InventoryItemInstance EquippedItem;
 
     [Header("Settings")]
@@ -152,7 +153,14 @@ public class PlayerInventoryController : NetworkBehaviour
 
     void _UpdateInventoryContents(List<InventoryItemInstance> NewValue) { Items = NewValue; }
 
-    void _UpdateEquippedItemIndex(int NewValue) { EquippedIndex = NewValue; }
+    void _UpdateEquippedItemIndex(int NewValue) 
+    { 
+        if (EquippedIndex != NewValue)
+        {
+            EquippedIndex = NewValue; 
+            UpdateEquippedItem(); 
+        }
+    }
     
     public void ChangeInventoryContents(List<InventoryItemInstance> NewValue) { Cmd_UpdateInventoryContents(NewValue); }
 

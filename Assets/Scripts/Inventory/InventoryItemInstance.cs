@@ -150,6 +150,33 @@ public class InventoryItemInstance
         }
     }
 
+    public bool GetAttributeBool(string Key)
+    {
+        for (int i = 0; i < Attributes.Count; i++)
+        {
+            if (Attributes[i].Key.Equals(Key)) { return Attributes[i].BooleanValue; }
+        }
+        return false;
+    }
+
+    public int? GetAttributeInt(string Key)
+    {
+        for (int i = 0; i < Attributes.Count; i++)
+        {
+            if (Attributes[i].Key.Equals(Key)) { return Attributes[i].IntegerValue; }
+        }
+        return null;
+    }
+
+    public string GetAttributeString(string Key)
+    {
+        for (int i = 0; i < Attributes.Count; i++)
+        {
+            if (Attributes[i].Key.Equals(Key)) { return Attributes[i].StringValue; }
+        }
+        return null;
+    }
+
 }
 
 public static class InventoryItemInstanceReadWriteFunctions
