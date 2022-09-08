@@ -83,8 +83,6 @@ public class PlayerInventoryController : NetworkBehaviour
     private void UpdateEquippedItem()
     {
 
-        Debug.Log("Update Equipped Item");
-
         foreach (Transform child in ItemAnchor.transform) { GameObject.Destroy(child.gameObject); }
         if (EquippedIndex >= 0)
         {
@@ -134,7 +132,11 @@ public class PlayerInventoryController : NetworkBehaviour
         }
     }
 
-    public void UpdateEquippedItemIndex(int OldValue, int NewValue) { _UpdateEquippedItemIndex(NewValue); }
+    public void UpdateEquippedItemIndex(int OldValue, int NewValue) 
+    { 
+        _UpdateEquippedItemIndex(NewValue); 
+        if (OldValue != NewValue) { UpdateEquippedItem(); }
+    }
 
     // Network Sync
 
@@ -150,7 +152,7 @@ public class PlayerInventoryController : NetworkBehaviour
 
     void _UpdateInventoryContents(List<InventoryItemInstance> NewValue) { Items = NewValue; }
 
-    void _UpdateEquippedItemIndex(int NewValue) { EquippedIndex = NewValue; UpdateEquippedItem(); }
+    void _UpdateEquippedItemIndex(int NewValue) { EquippedIndex = NewValue; }
     
     public void ChangeInventoryContents(List<InventoryItemInstance> NewValue) { Cmd_UpdateInventoryContents(NewValue); }
 
