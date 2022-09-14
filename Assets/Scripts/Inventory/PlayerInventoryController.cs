@@ -48,12 +48,12 @@ public class PlayerInventoryController : NetworkBehaviour
         
         if (hasAuthority)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetKeyDown(KeyCode.2)))
             {
                 if (EquippedIndex < Items.Count - 1) { SetEquippedIndex(EquippedIndex += 1); }
                 else if (EquippedIndex == Items.Count - 1) { SetEquippedIndex(-1);  }
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0 || Input.GetKeyDown(KeyCode.1)))
             {
                 if (EquippedIndex > -1) { SetEquippedIndex(EquippedIndex -= 1); }
                 else if (EquippedIndex == -1) { SetEquippedIndex(Items.Count - 1); }
