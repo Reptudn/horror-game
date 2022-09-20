@@ -80,12 +80,12 @@ public class InventoryManager : NetworkBehaviour
             if(items.Count > 0)
             {
 
-                if(Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetKeyDown(KeyCode.2)){ //scroll up
+                if(Input.GetAxis("Mouse ScrollWheel") > 0){ //scroll up
                     if(index < items.Count - 1) index++;
                     Show(items[index]);
                 }
 
-                if(Input.GetAxis("Mouse ScrollWheel") < 0 || Input.GetKeyDown(KeyCode.1))){ //scroll down
+                if(Input.GetAxis("Mouse ScrollWheel") < 0){ //scroll down
                     if(index < items.Count && index > 0) index--;
                     Show(items[index]);
                 }
