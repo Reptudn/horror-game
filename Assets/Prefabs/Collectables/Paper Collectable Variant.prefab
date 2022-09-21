@@ -86,6 +86,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 38a101c463a063a44941e431cbfb6ae6, type: 3}
   m_PrefabInstance: {fileID: 2559141107192884051}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &1211823865459390971
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3405438847681156610}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -462981019419857548, guid: 38a101c463a063a44941e431cbfb6ae6, type: 3}
 --- !u!95 &165931112
 Animator:
   serializedVersion: 4
@@ -121,17 +135,16 @@ MonoBehaviour:
   interactionText: Mega Secret Paper
   objectName: Collectable Paper
   canBeInteractedWith: 1
---- !u!64 &1211823865459390971
-MeshCollider:
+--- !u!114 &8774743290412719645
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3405438847681156610}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -462981019419857548, guid: 38a101c463a063a44941e431cbfb6ae6, type: 3}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a11fc4d512dcde74389a8971f047e523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeUntilDestroy: 1.07
