@@ -13,7 +13,7 @@ public class LightSwitch : MonoBehaviour, IInteractable
         lightSource.enabled = false;
     }
 
-    public void Interact(){
+    public void Interaction(){
         lightSource.enabled = !lightSource.enabled;
         Debug.Log("Interacted with light switch");
         Animation();
