@@ -180,6 +180,8 @@ public class DungeonGenerator : MonoBehaviour
 
         NavMeshBuilder.BuildNavMeshData(buildSettings, source, bounds, world.transform.position, world.transform.localRotation);
 
+        //something is missing but idk what
+
         Debug.Log("NavMesh generation done");
     }
 

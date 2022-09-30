@@ -323,6 +323,8 @@ MonoBehaviour:
   - {fileID: 8649064752874867207, guid: 9ab969e73ba81684e9b93ad09d57cc20, type: 3}
   eventRooms:
   - {fileID: 8649064752874867207, guid: 9ab969e73ba81684e9b93ad09d57cc20, type: 3}
+  - {fileID: 2159703966602492238, guid: 6585f3b388b5dcc4eabdc7c5831173c0, type: 3}
+  - {fileID: 164262, guid: d8d9fb21f04d0b34799e4d63ffe82c9f, type: 3}
   baseSnapPoint: {fileID: 1002864177}
   snappingPoints:
   - {fileID: 1958678836}
@@ -330,6 +332,10 @@ MonoBehaviour:
   - {fileID: 199169042}
   - {fileID: 1189663643}
   worldContainer: {fileID: 507673119}
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  navMeshShape: 2
 --- !u!4 &507673121
 Transform:
   m_ObjectHideFlags: 0
