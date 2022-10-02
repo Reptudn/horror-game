@@ -34,6 +34,7 @@ public class SteamLobby : MonoBehaviour
     public GameObject MainScreen;
     public GameObject LobbyScreen;
     public GameObject LobbyListScreen;
+    public GameObject LobbyCameraAnchor;
 
     [Range(1, 100)]
     public int PlayerPerLobby = 16;
@@ -108,7 +109,9 @@ public class SteamLobby : MonoBehaviour
     {
 
         MainScreen.SetActive(false);
-        LobbyScreen.SetActive(true);
+        StartCoroutine(TransitionCameraTo(LobbyCameraAnchor.transform.position, LobbyCameraAnchor.transform.rotation));
+        /*LobbyScreen.SetActive(true);*/
+        
         LobbyListScreen.SetActive(false);
         LobbyId = callback.m_ulSteamIDLobby;
 
@@ -179,6 +182,23 @@ public class SteamLobby : MonoBehaviour
     public void JoinLobby(CSteamID LobbyId)
     {
         SteamMatchmaking.JoinLobby(LobbyId);
+    }
+
+
+    private IEnumerator TransitionCameraTo(Vector3 EndPos, Quaternion EndRot)
+    {
+        float ElapsedTime = 0;
+        float WaitTime = 10f;
+ 
+        while (ElapsedTime < WaitTime)
+        {
+            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, EndPos, (ElapsedTime / WaitTime));
+            Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, EndRot, (ElapsedTime / WaitTime));
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return null;
+        
     }
 
 }

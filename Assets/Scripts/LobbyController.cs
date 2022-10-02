@@ -112,8 +112,12 @@ public class LobbyController : MonoBehaviour
                 NewPlayerItem.PlayerStatus = Player.PlayerStatus;
                 NewPlayerItem.SetPlayerValues();
 
-                PlayerItem.transform.SetParent(PlayerListViewContent.transform);
+                PlayerItem.transform.parent = PlayerListViewContent.transform;
                 PlayerItem.transform.localScale = Vector3.one;
+
+                Vector3 Position = NewPlayerItem.transform.localPosition;
+                Position.z = 0;
+                NewPlayerItem.transform.localPosition = Position;
 
                 Players.Add(NewPlayerItem);
 
