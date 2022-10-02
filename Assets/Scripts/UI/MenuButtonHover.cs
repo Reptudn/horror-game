@@ -13,23 +13,53 @@ public class MenuButtonHover : MonoBehaviour
     public Texture2D PointerTexture;
     public Texture2D CursorTexture;
 
+    // Animation
+
+    private Dictionary<GameObject, Vector3> ButtonStartPositions = new Dictionary<GameObject, Vector3>();
+    private Dictionary<GameObject, Vector3> TargetEndPositions = new Dictionary<GameObject, Vector3>();
+
+    public Vector3 GetStartPosition(GameObject Button)
+    {
+        return ButtonStartPositions.ContainsKey(Button) ? ButtonStartPositions[Button] : Button.transform.position;
+    }
+
     public void OnPointerHover(GameObject Button)
     {
-        RectTransform text = Button.GetComponentInChildren<RectTransform>();
-        Vector3 position = text.position;
-        position.x += HoverIndent;
-        text.SetPositionAndRotation(position, text.rotation);
         Cursor.SetCursor(Texture2D.redTexture, Vector2.zero, CursorMode.Auto);
-        //Button.GetComponentInChildren<TextMeshProUGUI>().SetText("Deez");
+        Vector3 Position = GetStartPosition(Button);
+        Position.x += HoverIndent;
+        StartCoroutine(Animation(Button, Position));
     }
 
     public void OnPointerExit(GameObject Button)
     {
-        RectTransform text = Button.GetComponentInChildren<RectTransform>();
-        Vector3 position = text.position;
-        position.x -= HoverIndent;
-        text.SetPositionAndRotation(position, text.rotation);
         Cursor.SetCursor(Texture2D.whiteTexture, Vector2.zero, CursorMode.Auto);
+        StartCoroutine(Animation(Button, GetStartPosition(Button)));
+    }
+
+    private IEnumerator Animation(GameObject Button, Vector3 EndPos)
+    {
+
+        TextMeshProUGUI Text = Button.GetComponentInChildren<TextMeshProUGUI>();
+        TargetEndPositions[Button] = EndPos;
+
+        if (!ButtonStartPositions.ContainsKey(Button))
+        {
+            ButtonStartPositions[Button] = Text.transform.position;
+        }
+
+        float ElapsedTime = 0;
+        float WaitTime = .2f;
+ 
+        while (ElapsedTime < WaitTime && TargetEndPositions[Button] == EndPos)
+        {
+            Text.transform.position = Vector3.Lerp(Button.transform.position, EndPos, (ElapsedTime / WaitTime));
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Debug.Log((ElapsedTime < WaitTime).ToString() + ", " +  (TargetEndPositions[Button] == EndPos).ToString());
+        yield return null;
+
     }
 
 }

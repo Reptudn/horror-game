@@ -35,6 +35,13 @@ public class SteamLobby : MonoBehaviour
     public GameObject LobbyScreen;
     public GameObject LobbyListScreen;
     public GameObject LobbyCameraAnchor;
+    public GameObject MainCameraAnchor;
+
+
+    // Camera Animation
+
+    private Vector3 CurrentEndPosition;
+    private Quaternion CurrentEndOrientation;
 
     [Range(1, 100)]
     public int PlayerPerLobby = 16;
@@ -169,6 +176,8 @@ public class SteamLobby : MonoBehaviour
         MainScreen.SetActive(true);
         LobbyScreen.SetActive(false);
         LobbyListScreen.SetActive(false);
+
+        StartCoroutine(TransitionCameraTo(MainCameraAnchor.transform.position, MainCameraAnchor.transform.rotation));
         
         SteamMatchmaking.LeaveLobby(LobbyId);
     }
@@ -187,10 +196,14 @@ public class SteamLobby : MonoBehaviour
 
     private IEnumerator TransitionCameraTo(Vector3 EndPos, Quaternion EndRot)
     {
+
+        CurrentEndPosition = EndPos;
+        CurrentEndOrientation = EndRot;
+
         float ElapsedTime = 0;
-        float WaitTime = 10f;
+        float WaitTime = 20f;
  
-        while (ElapsedTime < WaitTime)
+        while (ElapsedTime < WaitTime && CurrentEndPosition == EndPos && CurrentEndOrientation == EndRot)
         {
             Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, EndPos, (ElapsedTime / WaitTime));
             Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, EndRot, (ElapsedTime / WaitTime));
@@ -198,7 +211,7 @@ public class SteamLobby : MonoBehaviour
             yield return null;
         }
         yield return null;
-        
+
     }
 
 }

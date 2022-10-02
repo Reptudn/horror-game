@@ -24,7 +24,7 @@ public class PlayerListItem : MonoBehaviour
     public void ChangeReadyStatus()
     {
         if (PlayerId == 1){
-            PlayerStatusText.SetText("");
+            PlayerStatusText.SetText("Host");
         }
         else if (PlayerStatus)
         {
