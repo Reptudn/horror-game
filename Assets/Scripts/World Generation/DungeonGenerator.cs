@@ -77,7 +77,7 @@ public class DungeonGenerator : MonoBehaviour
             if(roomsPlaced > maxRooms) break;
 
             int random = UnityEngine.Random.Range(1, 10);
-            if (random < 3) { SpawnEventRoom(eventRooms[eventRoomsPlaced]); eventRoomsPlaced++; }
+            if (random < 2) { SpawnEventRoom(eventRooms[eventRoomsPlaced]); eventRoomsPlaced++; }
             else SpawnRoom(rooms[UnityEngine.Random.Range(0, rooms.Length -1)]);
 
             Debug.Log("Rooms placed: " + ( roomsPlaced + 1 ));
@@ -124,8 +124,8 @@ public class DungeonGenerator : MonoBehaviour
 
             //da machen wa auch was wenn man des da hinsetzen kann
             Debug.Log("Instantiate");
-            Instantiate(room);
-            SetPosition(room);
+            GameObject r = Instantiate(room) as GameObject;
+            SetPosition(r);
 
         }
         
@@ -162,12 +162,14 @@ public class DungeonGenerator : MonoBehaviour
 
         GameObject[] snap = AvailableSnappingPoints();
 
+        if(snap == null) return;
+
         int rand = UnityEngine.Random.Range(0, snap.Length -1);
-        room.transform.position = snap[rand].transform.position + room.transform.position;
+        room.transform.position = snap[rand].transform.position + lastSpawnedRoom.transform.position;
 
         snap[rand].GetComponent<SnapPoint>().available = false;
 
-        room.transform.SetParent(worldContainer.transform); //set room as child of world container
+        room.transform.parent = transform; //set room as child of world container
 
         Debug.Log("Position set");
     }
