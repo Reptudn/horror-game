@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867f7a9fd31b8284589c2e6ae88dd116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generationType: 0
+  generationType: 3
   rooms:
   - {fileID: 2159703966602492238, guid: 6585f3b388b5dcc4eabdc7c5831173c0, type: 3}
   - {fileID: 8649064752874867207, guid: 9ab969e73ba81684e9b93ad09d57cc20, type: 3}
@@ -372,11 +372,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7340160122043949627, guid: 86d4a44cecd165940ae5a9ba385e33f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.24
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7340160122043949627, guid: 86d4a44cecd165940ae5a9ba385e33f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.172
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7340160122043949627, guid: 86d4a44cecd165940ae5a9ba385e33f2, type: 3}
       propertyPath: m_LocalRotation.w
