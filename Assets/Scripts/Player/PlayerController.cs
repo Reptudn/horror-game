@@ -27,6 +27,10 @@ public class PlayerController : NetworkBehaviour {
     private float xRotation;
     private float yRotation;
 
+	[Header("Keys")]
+	public KeyCode sprintKey = KeyCode.LeftShift;
+	public KeyCode crouchKey = KeyCode.C;
+
 	[Header("Animation Attributes")]
 	public Animator animator;
 
@@ -108,8 +112,14 @@ public class PlayerController : NetworkBehaviour {
 
 		movement = transform.rotation * movement;
 
+		if(Input.GetKey(crouchKey)){
+			Crouch();
+		} else {
+			animator.SetBool("crouch", true);
+		}
+
 		bool sprint = false;
-		if(Input.GetKey(KeyCode.LeftShift)){
+		if(Input.GetKey(sprintKey)){
 			movement *= sprintMultiplier;
 			sprint = true;
 		}
@@ -154,6 +164,15 @@ public class PlayerController : NetworkBehaviour {
 
 	void Jump(){
 		
+	}
+
+	void Crouch(){
+
+		return; //cuz not ready yet LEUDE :D
+
+		animator.SetBool("crouch", true);
+		Camera.main.transform.localPosition = new Vector3(Camera.main.transform.localPosition.x, Camera.main.transform.localPosition.y / 2, Camera.main.transform.localPosition.z);
+
 	}
 
 
