@@ -12,6 +12,8 @@ public class AI : MonoBehaviour
     public GameObject playerToFollow;
     public GameObject[] wanderPoints;
 
+    public GameObject head;
+
     [SerializeField] private GameObject selectedWanderPoint;
 
     private Vector3 lastSeenPosition;
@@ -22,7 +24,7 @@ public class AI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         agent.autoRepath = true;
-        if(playerToFollow == null) playerToFollow = GameObject.Find("LocalGamePlayer");
+        if (playerToFollow == null) playerToFollow = GameObject.Find("LocalGamePlayer");
         GetNearestWanderPoint();
         agent.destination = selectedWanderPoint.transform.position;
     }
@@ -30,49 +32,61 @@ public class AI : MonoBehaviour
     void Update()
     {
 
-        if(hasReachedWanderPoint()) agent.destination = RandomWanderPoint().transform.position;
+        if (hasReachedWanderPoint()) agent.destination = RandomWanderPoint().transform.position;
 
-        if(Physics.Linecast(transform.position, playerToFollow.transform.position, out RaycastHit hit)){
+        if (Physics.Linecast(head.transform.position, playerToFollow.transform.position, out RaycastHit hit))
+        {
 
-            Debug.DrawLine(transform.position, new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z), Color.white, Time.deltaTime);
+            Debug.DrawLine(head.transform.position, new Vector3(hit.transform.position.x, hit.transform.position.y, hit.transform.position.z), Color.white, Time.deltaTime);
 
-            if(hit.transform.gameObject == playerToFollow && hit.distance <= maxTrackDistance){
+            if (hit.transform.gameObject == playerToFollow && hit.distance <= maxTrackDistance)
+            {
 
                 canSeeGoal = true;
                 lastSeenPosition = hit.transform.position;
                 SetGoal(hit.transform);
-                
-            } else if(!canSeeGoal || agent.pathStatus == NavMeshPathStatus.PathComplete){
+
+            }
+            else if (!canSeeGoal || agent.pathStatus == NavMeshPathStatus.PathComplete)
+            {
 
                 Wander();
 
-            } else {
+            }
+            else
+            {
 
                 canSeeGoal = false;
                 Search(lastSeenPosition);
 
             }
-        } 
+        }
 
     }
 
-    void Wander(){
+    void Wander()
+    {
         //Debug.Log("Wandering around");
-        float dist=agent.remainingDistance;
-        if (hasReachedWanderPoint()){
+        float dist = agent.remainingDistance;
+        if (hasReachedWanderPoint())
+        {
             agent.destination = RandomWanderPoint().transform.position;
-        } else if (selectedWanderPoint != null) { agent.destination = selectedWanderPoint.transform.position; }
-        
+        }
+        else if (selectedWanderPoint != null) { agent.destination = selectedWanderPoint.transform.position; }
+
     }
 
-    private Vector3 GetNearestWanderPoint(){
+    private Vector3 GetNearestWanderPoint()
+    {
 
         Vector3 closestPos = wanderPoints[0].transform.position;
         float clostestDistance = 100000000000f;
 
-        foreach(var obj in wanderPoints){
+        foreach (var obj in wanderPoints)
+        {
             float dist = Vector3.Distance(transform.position, obj.transform.position);
-            if(dist < clostestDistance && obj != selectedWanderPoint){
+            if (dist < clostestDistance && obj != selectedWanderPoint)
+            {
                 clostestDistance = dist;
                 closestPos = obj.transform.position;
                 selectedWanderPoint = obj;
@@ -84,32 +98,38 @@ public class AI : MonoBehaviour
         return closestPos;
     }
 
-    GameObject RandomWanderPoint(){
+    GameObject RandomWanderPoint()
+    {
         return wanderPoints[Random.Range(0, wanderPoints.Length - 1)];
     }
 
-    void Hunt(GameObject track){
+    void Hunt(GameObject track)
+    {
         Debug.Log("Hunting: " + track.name);
         //agent.speed = 3f;
     }
 
-    void Search(Vector3 lastSeenPosition){
-        if(lastSeenPosition == null) return;
+    void Search(Vector3 lastSeenPosition)
+    {
+        if (lastSeenPosition == null) return;
         Debug.Log("Searching at last seen position");
         agent.destination = lastSeenPosition;
         Wander();
     }
 
-    void SetGoal(Transform goal){
+    void SetGoal(Transform goal)
+    {
         Debug.Log("Tracking");
         agent.destination = goal.position;
         //agent.speed = 1f;
     }
 
-    bool hasReachedWanderPoint(){
-        if(selectedWanderPoint != null && (selectedWanderPoint.transform.position == transform.position || agent.remainingDistance == 0)){
+    bool hasReachedWanderPoint()
+    {
+        if (selectedWanderPoint != null && (selectedWanderPoint.transform.position == transform.position || agent.remainingDistance == 0))
+        {
             return true;
-        } 
+        }
         return false;
     }
 }
