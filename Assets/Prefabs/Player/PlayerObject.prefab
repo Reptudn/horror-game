@@ -1959,6 +1959,7 @@ GameObject:
   - component: {fileID: 7488275702785602586}
   - component: {fileID: 1440719227059523760}
   - component: {fileID: 3036457240374876108}
+  - component: {fileID: 572250020468507234}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Player
@@ -2263,6 +2264,18 @@ MonoBehaviour:
   armorBar: {fileID: 1221988617342747278}
   healthValue: {fileID: 6851832904793282004}
   armorValue: {fileID: 5465139638640917874}
+--- !u!114 &572250020468507234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6750405403183891798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336f8386c741bf844bfed933ab08164c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6904817432851726522
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatItem : MonoBehaviour, ICombatItem
+public class CombatItem : MonoBehaviour
 {
 
     [Header("Basic")]
@@ -24,7 +24,7 @@ public class CombatItem : MonoBehaviour, ICombatItem
 
     private bool hasRun = false;
 
-    public void Attack()
+    public void Attack(Animator animator)
     {
 
         if (hasRun) return;
@@ -40,7 +40,9 @@ public class CombatItem : MonoBehaviour, ICombatItem
                 ammo -= 1;
             }
 
-            itemAnimator.SetTrigger("AttackTrigger");
+            //itemAnimator.SetTrigger("AttackTrigger");
+            animator.SetLayerWeight(5, 1f);
+            animator.SetTrigger("AttackTrigger");
 
             if (hit.distance > hitDistance) return;
 
@@ -62,7 +64,7 @@ public class CombatItem : MonoBehaviour, ICombatItem
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0)) Attack();
+        //if (Input.GetMouseButtonDown(0)) Attack();
 
     }
 
