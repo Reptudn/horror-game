@@ -26,7 +26,7 @@ public class CursorEffects : MonoBehaviour
                 mousePos.z = 1.5f;
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
                 ParticleSystemContainer.transform.position = worldPos;
-                Debug.Log("Cum");
+                Debug.Log(":o");
                 particleSystem.Stop();
                 particleSystem.Play();
             

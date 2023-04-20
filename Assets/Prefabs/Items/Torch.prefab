@@ -5341,6 +5341,8 @@ GameObject:
   - component: {fileID: 4984729921344200503}
   - component: {fileID: 4984729921344200488}
   - component: {fileID: 1055179909084254560}
+  - component: {fileID: 1736932039321352968}
+  - component: {fileID: 9085592314135563037}
   m_Layer: 0
   m_Name: Torch
   m_TagString: Untagged
@@ -5379,7 +5381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb7e3483d326a1418112fa99186b008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionText: PickUp Fackel
+  interactionText: Pick up Torch
   objectName: Torch
   canBeInteractedWith: 1
 --- !u!114 &4984729921344200503
@@ -5424,10 +5426,44 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.9251512
-  m_Height: 9.577142
+  m_Radius: 1.1777683
+  m_Height: 10.396257
   m_Direction: 1
-  m_Center: {x: 0.14647618, y: -0.78857005, z: 0.0983727}
+  m_Center: {x: 0.14647618, y: -0.7994443, z: -0.15424423}
+--- !u!114 &1736932039321352968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326694744401011299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8878e06481f52c4bb84dc568293679d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  cooldown: 1
+  hasAmmo: 0
+  ammo: 0
+  hitDistance: 3
+--- !u!114 &9085592314135563037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326694744401011299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 2
+  m_AssetId: e872894d3432ab241936f4a3f946622d
+  hasSpawned: 0
 --- !u!1 &8668246265750624016
 GameObject:
   m_ObjectHideFlags: 0

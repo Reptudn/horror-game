@@ -559,6 +559,8 @@ MonoBehaviour:
   maxTrackDistance: 10
   playerToFollow: {fileID: 0}
   wanderPoints: []
+  head: {fileID: 2957346375786018352}
+  selectedWanderPoint: {fileID: 0}
 --- !u!114 &806353420398708951
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -50,7 +50,7 @@ public class PlayerObjectController : NetworkBehaviour
     {
         Manager.Players.Remove(this);
         LobbyController.Instance.UpdatePlayerList();
-    }   
+    }
 
     [Command]
     private void Cmd_SetPlayerName(string PlayerName)
@@ -72,7 +72,8 @@ public class PlayerObjectController : NetworkBehaviour
         }
     }
 
-    public void PlayerNameUpdate(string OldValue, string NewValue){
+    public void PlayerNameUpdate(string OldValue, string NewValue)
+    {
 
         if (isServer)
         {
@@ -101,7 +102,7 @@ public class PlayerObjectController : NetworkBehaviour
     public void CanStartGame(string SceneName)
     {
 
- 
+
         if (hasAuthority && LobbyController.Instance.CheckIfAllReady())
         {
             Cmd_CanStartGame(SceneName);

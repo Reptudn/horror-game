@@ -64,8 +64,9 @@ public class IslandGenerator : MonoBehaviour
                 }
                 Vector3 pos = new Vector3(x, 0, y);
 
-                int rand = Random.Range(0, 10);
-                Instantiate(rooms[Random.Range(0, rooms.Length - 1)]);
+                //int rand = Random.Range(0, 10);
+                //Debug.DrawCube(pos);
+                //Instantiate(rooms[Random.Range(0, rooms.Length - 1)]);
 
                 //if(rand < 2) { Instantiate(eventRooms[Random.Range(0, eventRooms.Length - 1)]) as GameObject; }
                 //else Instantiate(rooms[Random.Range(0, rooms.Lenght - 1)]) as GameObject;
